@@ -24,7 +24,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.config import get_settings
 from common.exceptions import AppException
 from common.redis_client import get_redis
-
+from common.database import _db_manager
+from sqlalchemy import text
 settings = get_settings()
 
 
@@ -202,6 +203,118 @@ async def get_me(current_user: dict = Depends(get_current_user)):
         "username": current_user["username"],
         "role": current_user["role"],
     }
+
+
+# ---- Database Admin Routes ----
+# 数据库管理面板后端 API：查看表、表结构、分页查询、自定义 SQL
+
+from pydantic import Field
+
+
+class QueryRequest(BaseModel):
+    sql: str
+    limit: int = Field(default=500, le=5000)
+
+
+@app.get("/api/dbadmin/tables", tags=["DB Admin"])
+async def db_list_tables():
+    """获取所有业务表列表（排除系统表）"""
+    async with _db_manager.engine.connect() as conn:
+        result = await conn.execute(
+            text("""
+                SELECT TABLE_NAME FROM information_schema.TABLES
+                WHERE TABLE_SCHEMA = DATABASE()
+                  AND TABLE_TYPE = 'BASE TABLE'
+                  AND TABLE_NAME NOT LIKE '\\_\\_%'
+                ORDER BY TABLE_NAME
+            """)
+        )
+        tables = [row[0] for row in result]
+    return {"tables": tables}
+
+
+@app.get("/api/dbadmin/tables/{table_name}", tags=["DB Admin"])
+async def db_table_schema(table_name: str):
+    """获取指定表的字段结构"""
+    async with _db_manager.engine.connect() as conn:
+        result = await conn.execute(
+            text("""
+                SELECT COLUMN_NAME AS `Field`,
+                       COLUMN_TYPE AS `Type`,
+                       IS_NULLABLE AS `Null`,
+                       COLUMN_KEY AS `Key`,
+                       COLUMN_DEFAULT AS `Default`,
+                       EXTRA AS `Extra`
+                FROM information_schema.COLUMNS
+                WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :tbl
+                ORDER BY ORDINAL_POSITION
+            """),
+            {"tbl": table_name},
+        )
+        columns = [dict(row._mapping) for row in result]
+    return {"table": table_name, "columns": columns}
+
+
+@app.get("/api/dbadmin/tables/{table_name}/data", tags=["DB Admin"])
+async def db_table_data(table_name: str, page: int = 1, page_size: int = 50):
+    """获取表的分页数据"""
+    offset = (page - 1) * page_size
+
+    async with _db_manager.engine.connect() as conn:
+        # 总数
+        count_result = await conn.execute(
+            text(f"SELECT COUNT(*) FROM `{table_name}`")
+        )
+        total = count_result.scalar() or 0
+
+        # 列名
+        col_result = await conn.execute(
+            text("""
+                SELECT COLUMN_NAME FROM information_schema.COLUMNS
+                WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :tbl
+                ORDER BY ORDINAL_POSITION
+            """),
+            {"tbl": table_name},
+        )
+        columns = [row[0] for row in col_result]
+
+        # 数据
+        data_result = await conn.execute(
+            text(f"SELECT * FROM `{table_name}` LIMIT :lim OFFSET :off"),
+            {"lim": page_size, "off": offset},
+        )
+        rows = [dict(row._mapping) for row in data_result]
+
+    return {
+        "table": table_name,
+        "columns": columns,
+        "rows": rows,
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+    }
+
+
+@app.post("/api/dbadmin/query", tags=["DB Admin"])
+async def db_run_query(req: QueryRequest):
+    """执行自定义 SQL 查询（只允许 SELECT/EXPLAIN）"""
+    sql_upper = req.sql.strip().upper()
+
+    allowed_prefixes = ("SELECT", "EXPLAIN", "DESC", "DESCRIBE", "SHOW")
+    if not any(sql_upper.startswith(p) for p in allowed_prefixes):
+        raise AppException("只允许执行查询语句 (SELECT/EXPLAIN/DESC/SHOW)", status_code=403)
+
+    async with _db_manager.engine.connect() as conn:
+        try:
+            result = await conn.execute(text(req.sql))
+            if result.returns_rows:
+                columns = list(result.keys())
+                rows = [dict(row._mapping) for row in result]
+                return {"columns": columns, "rows": rows, "row_count": len(rows)}
+            else:
+                return {"affected": result.rowcount}
+        except Exception as e:
+            raise AppException(f"SQL 执行错误: {str(e)}", status_code=400)
 
 
 # ---- Service Proxy Routes ----

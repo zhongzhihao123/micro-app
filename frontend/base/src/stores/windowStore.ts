@@ -60,6 +60,16 @@ export const APP_DEFS = [
     defaultWidth: 1150,
     defaultHeight: 740,
   },
+  {
+    id: 'sub-sql',
+    name: 'SQL 数据',
+    title: 'SQL 数据管理',
+    icon: '🗄️',
+    entry: '//localhost:3005',
+    color: '#3b82f6',
+    defaultWidth: 1200,
+    defaultHeight: 760,
+  },
 ]
 
 export const useWindowStore = defineStore('windows', () => {

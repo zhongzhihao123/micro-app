@@ -12,7 +12,21 @@
 from typing import AsyncGenerator, Optional
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import NullPool
 from .config import get_settings
+
+# ── 兼容修复：aiomysql 0.3.2 ping() 与 SQLAlchemy 2.x 不兼容 ──
+import sqlalchemy.dialects.mysql.aiomysql as _sa_aiomysql
+_orig_ping = _sa_aiomysql.AsyncAdapt_aiomysql_connection.ping
+
+
+async def _patched_ping(self, reconnect=None):
+    if reconnect is None:
+        reconnect = True
+    return await _orig_ping(self, reconnect)
+
+
+_sa_aiomysql.AsyncAdapt_aiomysql_connection.ping = _patched_ping
 
 settings = get_settings()
 
@@ -34,10 +48,8 @@ class DatabaseManager:
         if self._engine is None:
             self._engine = create_async_engine(
                 self._url,
-                pool_size=settings.DATABASE_POOL_SIZE,
-                max_overflow=settings.DATABASE_MAX_OVERFLOW,
-                pool_pre_ping=True,
-                pool_recycle=3600,
+                poolclass=NullPool,
+                pool_pre_ping=False,
                 echo=settings.DEBUG,
             )
         return self._engine
