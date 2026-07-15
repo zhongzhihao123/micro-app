@@ -93,8 +93,8 @@ async function handleLogin() {
   error.value = ''
 
   try {
-    // 调用 Java Gateway 登录
-    const res = await axios.post('http://localhost:8100/api/users/login', {
+    // 调用 Java Gateway 登录（通过 Vite proxy → :8000）
+    const res = await axios.post('/api/users/login', {
       username: form.username,
       password: form.password,
     })

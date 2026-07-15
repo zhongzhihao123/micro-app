@@ -32,14 +32,14 @@ AI-system/
 │   │   ├── __init__.py                # 包说明
 │   │   ├── config.py                  # 全局配置（环境变量 + 默认值）
 │   │   ├── database.py                # MySQL 异步连接池（aiomysql + SQLAlchemy）
-│   │   ├── models.py                  # ORM 基础模型（User, ApiKey）
-│   │   ├── auth.py                    # JWT 认证（签发/验证/依赖注入）
+│   │   ├── models.py                  # ORM 基础模型
+│   │   ├── database.py                # MySQL 异步连接池
 │   │   ├── redis_client.py            # Redis 客户端（缓存/限流/分布式锁）
 │   │   ├── rabbitmq_client.py         # RabbitMQ 客户端（发布/消费）
 │   │   ├── milvus_client.py           # Milvus 向量数据库客户端
 │   │   └── exceptions.py              # 统一异常类（404/401/403/422/429/503）
 │   │
-│   ├── gateway/                       # API 网关（端口 8000）
+│   ├── gateway/                       # 内部 API 网关（端口 8005，不对前端开放）
 │   │   ├── main.py                    # 路由分发、JWT 端点、CORS、请求日志
 │   │   └── Dockerfile                 # 网关 Docker 镜像
 │   │
@@ -176,13 +176,14 @@ cd frontend/sub-mlops && npx vite --port 3004 --host 0.0.0.0
 | 服务 | 地址 |
 |------|------|
 | 前端平台 | http://localhost:3000 |
-| API 文档 (Swagger) | http://localhost:8000/api/docs |
+| Python 内部网关 (Swagger) | http://localhost:8005/api/docs |
+| Java 统一网关 | http://localhost:8000 |
 | RabbitMQ 管理 | http://localhost:15672 (aisys/aisys123) |
 
-### 4. 默认账号
+### 4. 登录方式
 
-- 用户名：`admin`
-- 密码：`admin123`
+用户体系由 Java 微服务管理，前端启动后弹出登录页。
+详见 `java-spring-project/README.md`。
 
 ### 5. 生成模拟数据
 
@@ -234,12 +235,12 @@ make data
 Browser (localhost:3000)
     │
     ▼
-API Gateway (localhost:8000)
-    ├── /api/auth/*     → JWT 认证
-    ├── /api/nlp/*      → NLP 服务 (8001)
-    ├── /api/recommend/* → 推荐服务 (8002)
+Java 统一网关 (localhost:8000) — 前端唯一入口
+    ├── /api/users/**       → 用户服务 (8101)
+    ├── /api/nlp/**         → Python NLP (8001)
+    ├── /api/recommend/**   → Python 推荐 (8002)
     ├── /api/cv/*       → CV 服务 (8003)
-    └── /api/mlops/*    → MLOps 服务 (8004)
+    ├── /api/mlops/**       → Python MLOps (8004)
             │
             ├── MySQL (3307)    — 业务数据
             ├── Redis (6379)    — 缓存/限流
@@ -261,7 +262,7 @@ API Gateway (localhost:8000)
 ### 推荐系统流程
 
 ```
-用户行为（view/click/like/purchase）
+用户行为数据（供推荐引擎使用）
   → RabbitMQ 异步消费
   → 行为权重计算
   → 5种算法并行计算
@@ -274,19 +275,21 @@ API Gateway (localhost:8000)
 
 ### 后端核心
 
-#### `backend/common/config.py` — 全局配置
-基于 pydantic-settings，所有配置可从环境变量覆盖。包含数据库连接、Redis、RabbitMQ、Milvus、OpenAI API、JWT 等所有配置项。
+####  — ~~JWT 认证~~ **（已移除）**
+
+用户认证由 Java 微服务处理，详见 。
+Python 端不再管理任何用户/登录逻辑。
 
 #### `backend/common/database.py` — 数据库管理器
 单例模式 MySQL 异步连接池。`get_db()` 作为 FastAPI 依赖注入，自动管理事务 commit/rollback。
 
 #### `backend/common/models.py` — ORM 模型
-定义 `BaseModel`（UUID 主键 + 自动时间戳）和 `User`、`ApiKey` 两个基础模型。业务表在 `infrastructure/mysql/init.sql`。
+定义 `BaseModel`（UUID 主键 + 自动时间戳）。业务表在 `infrastructure/mysql/init.sql`。
 
-#### `backend/common/auth.py` — JWT 认证
-- `create_access_token()` — 签发 Access Token（60分钟过期）
-- `get_current_user()` — FastAPI 依赖，从 Header 提取用户
-- `get_current_admin()` — 要求 admin 角色
+#### `backend/common/auth.py` — ~~JWT 认证~~ **（已移除）**
+
+用户认证由 Java 微服务处理，详见 `java-spring-project/README.md`。
+Python 端不再管理任何用户/登录逻辑。
 
 #### `backend/common/redis_client.py` — Redis 客户端
 - `get/set` — 基础 KV 操作
@@ -308,9 +311,9 @@ API Gateway (localhost:8000)
 
 ### 后端服务
 
-#### `backend/gateway/main.py` — API 网关
+#### `backend/gateway/main.py` — Python 内部网关（端口 8005）
 - **路由代理**：将 `/api/{service}/*` 转发到对应微服务
-- **认证端点**：`/api/auth/login`、`/api/auth/register`、`/api/auth/me`
+- **注意**：用户认证已移除，由 Java 统一网关管理
 - **中间件**：CORS、GZip 压缩、请求计时（X-Process-Time）
 - **异常处理**：全局捕获并返回统一 JSON 错误格式
 
@@ -381,9 +384,9 @@ RabbitMQ 定义：`ai.tasks`（任务分发）、`ai.events`（事件通知）�
 ### 认证
 | 方法 | 路径 | 说明 |
 |------|------|------|
-| POST | /api/auth/login | 用户登录 |
-| POST | /api/auth/register | 用户注册 |
-| GET | /api/auth/me | 当前用户信息 |
+| ~~POST~~ | ~~/api/auth/login~~ | ~~已移除~~ 由 Java 管理 |
+| ~~POST~~ | ~~/api/auth/register~~ | ~~已移除~~ 由 Java 管理 |
+| ~~GET~~ | ~~/api/auth/me~~ | ~~已移除~~ 由 Java 管理 |
 
 ### NLP
 | 方法 | 路径 | 说明 |
