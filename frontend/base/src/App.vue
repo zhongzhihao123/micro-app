@@ -1,5 +1,9 @@
 <template>
-  <div id="desktop">
+  <!-- 登录弹窗 -->
+  <LoginDialog :visible="!isLoggedIn" @login="onLogin" />
+
+  <!-- 桌面 -->
+  <div v-if="isLoggedIn" id="desktop">
     <!-- 桌面壁纸 -->
     <div class="desktop-wallpaper">
       <div class="wallpaper-gradient" />
@@ -71,6 +75,7 @@
       </div>
     </div>
   </div>
+  <!-- end desktop -->
 </template>
 
 <script setup lang="ts">
@@ -79,9 +84,20 @@ import { useWindowStore, APP_DEFS } from '@/stores/windowStore'
 import { loadMicroApp } from 'qiankun'
 import type { MicroApp } from 'qiankun'
 import WindowFrame from '@/components/WindowFrame.vue'
+import LoginDialog from '@/components/LoginDialog.vue'
 
 const store = useWindowStore()
 const { windows, activeWindowId, openApp, closeWindow, minimizeWindow, toggleMaximize, focusWindow, updatePosition, updateSize } = store
+
+// ── 登录状态 ──
+const token = ref(localStorage.getItem('jwt_token') || '')
+const isLoggedIn = ref(!!token.value)
+
+function onLogin(jwt: string) {
+  token.value = jwt
+  isLoggedIn.value = true
+  localStorage.setItem('jwt_token', jwt)
+}
 
 const desktopApps = APP_DEFS
 const microApps = new Map<string, MicroApp>()

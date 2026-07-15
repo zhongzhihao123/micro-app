@@ -2,8 +2,20 @@
 -- AI System Platform - MySQL Database Initialization
 -- ============================================================
 
--- 用户表
+-- ============================================================
+-- 用户表（由 Java 微服务管理，Python AI 服务只保留 FK 引用）
+-- 登录认证请走 Java Gateway (:8100/api/users/login)
+-- ============================================================
 CREATE TABLE IF NOT EXISTS users (
+    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    username VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    hashed_password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'user',
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
     id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -15,17 +27,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- API Key 表
-CREATE TABLE IF NOT EXISTS api_keys (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    user_id CHAR(36) NOT NULL,
-    key_hash VARCHAR(255) UNIQUE NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    is_active BOOLEAN DEFAULT TRUE,
-    last_used_at TIMESTAMP NULL,
-    expires_at TIMESTAMP NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+-- api_keys 表已移除（Java 替代）
 
 -- ==================== NLP 知识库 ====================
 
@@ -214,7 +216,7 @@ CREATE TABLE IF NOT EXISTS inference_logs (
 
 -- ==================== 索引 ====================
 CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_api_keys_user ON api_keys(user_id);
+
 CREATE INDEX idx_documents_user ON knowledge_documents(user_id);
 CREATE INDEX idx_documents_status ON knowledge_documents(status);
 CREATE INDEX idx_chunks_document ON document_chunks(document_id);

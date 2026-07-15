@@ -1,16 +1,15 @@
 """
 AI System Platform - API 网关
 ==============================
-统一入口 | 路由分发 | JWT 认证 | 请求日志 | 服务代理
+统一入口 | 路由分发 | 请求日志 | 服务代理
 
 职责：
 1. 接收所有前端请求，转发到对应微服务
-2. JWT Token 签发与验证（/api/auth/*）
-3. 健康检查 & API 信息端点
-4. CORS 跨域、GZip 压缩、请求计时
+2. 健康检查 & API 信息端点
+3. CORS 跨域、GZip 压缩、请求计时
 """
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
@@ -26,6 +25,8 @@ from common.exceptions import AppException
 from common.redis_client import get_redis
 from common.database import _db_manager
 from sqlalchemy import text
+from pydantic import BaseModel, Field
+
 settings = get_settings()
 
 
@@ -143,73 +144,8 @@ async def api_info():
     }
 
 
-# ---- Auth Routes ----
-# JWT 认证相关路由：登录、注册、获取当前用户信息
-
-from common.auth import (
-    hash_password,
-    verify_password,
-    create_access_token,
-    create_refresh_token,
-    get_current_user,
-)
-
-from pydantic import BaseModel, EmailStr
-
-
-class LoginRequest(BaseModel):
-    username: str
-    password: str
-
-
-class RegisterRequest(BaseModel):
-    username: str
-    email: str
-    password: str
-
-
-class TokenResponse(BaseModel):
-    access_token: str
-    refresh_token: str
-    token_type: str = "bearer"
-
-
-@app.post("/api/auth/login", response_model=TokenResponse, tags=["Auth"])
-async def login(request: LoginRequest):
-    """用户登录：验证用户名密码，签发 JWT access_token + refresh_token"""
-    # 简化版：直接返回 token（生产环境需查询数据库验证）
-    if request.username == "admin" and request.password == "admin123":
-        access_token = create_access_token(
-            user_id="admin-id",
-            username="admin",
-            role="admin",
-        )
-        refresh_token = create_refresh_token(user_id="admin-id")
-        return TokenResponse(access_token=access_token, refresh_token=refresh_token)
-    raise AppException("Invalid credentials", status_code=401)
-
-
-@app.post("/api/auth/register", tags=["Auth"])
-async def register(request: RegisterRequest):
-    """用户注册：创建新用户账号（需对接数据库）"""
-    return {"message": "Registration endpoint - integrate with database", "username": request.username}
-
-
-@app.get("/api/auth/me", tags=["Auth"])
-async def get_me(current_user: dict = Depends(get_current_user)):
-    """获取当前用户信息：从 JWT Token 中解析用户身份"""
-    return {
-        "user_id": current_user["sub"],
-        "username": current_user["username"],
-        "role": current_user["role"],
-    }
-
-
 # ---- Database Admin Routes ----
 # 数据库管理面板后端 API：查看表、表结构、分页查询、自定义 SQL
-
-from pydantic import Field
-
 
 class QueryRequest(BaseModel):
     sql: str
