@@ -1,0 +1,383 @@
+# ============================================================
+# AI System Platform - Kubernetes Deployment
+# 生产环境 K8s 部署配置模板
+# ============================================================
+
+# ---- Namespace ----
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai-platform
+  labels:
+    app: ai-system
+    environment: production
+---
+# ---- ConfigMap ----
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-platform-config
+  namespace: ai-platform
+data:
+  ENV: "production"
+  LOG_LEVEL: "INFO"
+  MYSQL_HOST: "mysql-service"
+  REDIS_HOST: "redis-service"
+  RABBITMQ_HOST: "rabbitmq-service"
+  MILVUS_HOST: "milvus-service"
+  MILVUS_PORT: "19530"
+---
+# ---- Secrets ----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ai-platform-secrets
+  namespace: ai-platform
+type: Opaque
+stringData:
+  MYSQL_PASSWORD: "change-me-in-production"
+  REDIS_PASSWORD: "change-me-in-production"
+  RABBITMQ_PASSWORD: "change-me-in-production"
+  SECRET_KEY: "change-me-in-production-use-random-string"
+  OPENAI_API_KEY: "sk-your-api-key-here"
+---
+# ---- API Gateway Deployment ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: ai-platform
+  labels:
+    app: gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: ai-platform/gateway:latest
+        ports:
+        - containerPort: 8000
+          name: http
+        envFrom:
+        - configMapRef:
+            name: ai-platform-config
+        - secretRef:
+            name: ai-platform-secrets
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "2000m"
+            memory: "2Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+# ---- Gateway Service ----
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+  namespace: ai-platform
+spec:
+  selector:
+    app: gateway
+  ports:
+  - port: 8000
+    targetPort: 8000
+    name: http
+  type: ClusterIP
+---
+# ---- NLP Service Deployment ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nlp-service
+  namespace: ai-platform
+  labels:
+    app: nlp-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nlp-service
+  template:
+    metadata:
+      labels:
+        app: nlp-service
+    spec:
+      containers:
+      - name: nlp-service
+        image: ai-platform/nlp-service:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: ai-platform-config
+        - secretRef:
+            name: ai-platform-secrets
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "4000m"
+            memory: "8Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nlp-service-svc
+  namespace: ai-platform
+spec:
+  selector:
+    app: nlp-service
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+# ---- Recommend Service Deployment ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommend-service
+  namespace: ai-platform
+  labels:
+    app: recommend-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: recommend-service
+  template:
+    metadata:
+      labels:
+        app: recommend-service
+    spec:
+      containers:
+      - name: recommend-service
+        image: ai-platform/recommend-service:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: ai-platform-config
+        - secretRef:
+            name: ai-platform-secrets
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "2000m"
+            memory: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommend-service-svc
+  namespace: ai-platform
+spec:
+  selector:
+    app: recommend-service
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+# ---- CV Service Deployment ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cv-service
+  namespace: ai-platform
+  labels:
+    app: cv-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cv-service
+  template:
+    metadata:
+      labels:
+        app: cv-service
+    spec:
+      containers:
+      - name: cv-service
+        image: ai-platform/cv-service:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: ai-platform-config
+        - secretRef:
+            name: ai-platform-secrets
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "2Gi"
+          limits:
+            cpu: "4000m"
+            memory: "8Gi"
+        volumeMounts:
+        - name: uploads
+          mountPath: /app/uploads
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: cv-uploads-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cv-service-svc
+  namespace: ai-platform
+spec:
+  selector:
+    app: cv-service
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+# ---- MLOps Service Deployment ----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mlops-service
+  namespace: ai-platform
+  labels:
+    app: mlops-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mlops-service
+  template:
+    metadata:
+      labels:
+        app: mlops-service
+    spec:
+      containers:
+      - name: mlops-service
+        image: ai-platform/mlops-service:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: ai-platform-config
+        - secretRef:
+            name: ai-platform-secrets
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "2000m"
+            memory: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mlops-service-svc
+  namespace: ai-platform
+spec:
+  selector:
+    app: mlops-service
+  ports:
+  - port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+# ---- Persistent Volume Claim ----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cv-uploads-pvc
+  namespace: ai-platform
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+---
+# ---- Ingress ----
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ai-platform-ingress
+  namespace: ai-platform
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.ai-platform.example.com
+    secretName: ai-platform-tls
+  rules:
+  - host: api.ai-platform.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway-service
+            port:
+              number: 8000
+---
+# ---- Horizontal Pod Autoscaler ----
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gateway-hpa
+  namespace: ai-platform
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gateway
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
