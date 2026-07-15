@@ -1,0 +1,145 @@
+# ─── Python ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ─── 虚拟环境 ─────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+virtualenv/
+
+# ─── 环境变量（含密钥、数据库密码、API Key） ────────
+.env
+.env.local
+.env.*.local
+.env.production
+backend/.env
+backend/.env.*
+frontend/*/.env
+frontend/*/.env.*
+
+# ─── 依赖 ─────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+frontend/*/node_modules/
+
+# ─── 构建产物 ─────────────────────────────────────────
+dist/
+dist-ssr/
+*.local
+frontend/*/dist/
+
+# ─── Docker ──────────────────────────────────────────
+.docker/
+docker-compose.override.yml
+
+# ─── K8s / 基础设施 ──────────────────────────────────
+*.kubeconfig
+infrastructure/k8s/*-secret.yaml
+infrastructure/k8s/overlays/
+
+# ─── 数据（生成的 mock 数据不提交） ──────────────────
+data/*.json
+!data/*.md
+!data/generate_data.py
+
+# ─── Python 依赖文件（由 requirements.txt 管理） ────
+backend/requirements.lock
+Pipfile.lock
+
+# ─── 数据库迁移 ──────────────────────────────────────
+alembic.ini
+migrations/versions/*.py
+!migrations/versions/.gitkeep
+
+# ─── IDE / 编辑器 ─────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ─── 操作系统 ─────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ─── 日志 ─────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+backend/logs/
+
+# ─── 测试覆盖度 ──────────────────────────────────────
+htmlcov/
+.coverage
+.coverage.*
+coverage/
+.nyc_output/
+
+# ─── 缓存 ─────────────────────────────────────────────
+.turbo/
+.cache/
+.eslintcache
+.stylelintcache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─── TypeScript ───────────────────────────────────────
+*.tsbuildinfo
+
+# ─── Jupyter Notebook 输出 ──────────────────────────
+.ipynb_checkpoints/
+
+# ─── ML 模型文件（大文件不提交） ────────────────────
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.pb
+*.gguf
+*.safetensors
+!backend/services/*/models/__init__.py
+backend/services/*/models/*.pkl
+backend/services/*/models/*.h5
+
+# ─── 向量数据库本地数据 ────────────────────────────
+milvus_data/
+
+# ─── SSL / 证书 ──────────────────────────────────────
+*.pem
+*.key
+*.crt
+*.cert

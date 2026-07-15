@@ -1,0 +1,145 @@
+{
+  "rabbit_version": "3.13",
+  "users": [
+    {
+      "name": "aisys",
+      "password_hash": "PLACEHOLDER_HASH",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    { "name": "ai_platform" }
+  ],
+  "permissions": [
+    {
+      "user": "aisys",
+      "vhost": "ai_platform",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "ai.tasks",
+      "vhost": "ai_platform",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false
+    },
+    {
+      "name": "ai.events",
+      "vhost": "ai_platform",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false
+    },
+    {
+      "name": "ai.dlq",
+      "vhost": "ai_platform",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false
+    }
+  ],
+  "queues": [
+    {
+      "name": "nlp.document.process",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "nlp.document.failed"
+      }
+    },
+    {
+      "name": "nlp.embedding.generate",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "nlp.embedding.failed"
+      }
+    },
+    {
+      "name": "recommend.model.train",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "recommend.train.failed"
+      }
+    },
+    {
+      "name": "recommend.inference.batch",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "recommend.inference.failed"
+      }
+    },
+    {
+      "name": "cv.image.process",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "cv.process.failed"
+      }
+    },
+    {
+      "name": "cv.video.analyze",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "cv.video.failed"
+      }
+    },
+    {
+      "name": "mlops.training.job",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "mlops.training.failed"
+      }
+    },
+    {
+      "name": "mlops.model.deploy",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "ai.dlq",
+        "x-dead-letter-routing-key": "mlops.deploy.failed"
+      }
+    },
+    {
+      "name": "ai.notifications",
+      "vhost": "ai_platform",
+      "durable": true,
+      "auto_delete": false
+    }
+  ],
+  "bindings": [
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "nlp.document.process", "destination_type": "queue", "routing_key": "nlp.document.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "nlp.embedding.generate", "destination_type": "queue", "routing_key": "nlp.embedding.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "recommend.model.train", "destination_type": "queue", "routing_key": "recommend.train.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "recommend.inference.batch", "destination_type": "queue", "routing_key": "recommend.inference.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "cv.image.process", "destination_type": "queue", "routing_key": "cv.image.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "cv.video.analyze", "destination_type": "queue", "routing_key": "cv.video.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "mlops.training.job", "destination_type": "queue", "routing_key": "mlops.training.*", "arguments": {} },
+    { "source": "ai.tasks", "vhost": "ai_platform", "destination": "mlops.model.deploy", "destination_type": "queue", "routing_key": "mlops.deploy.*", "arguments": {} },
+    { "source": "ai.events", "vhost": "ai_platform", "destination": "ai.notifications", "destination_type": "queue", "routing_key": "notify.#", "arguments": {} }
+  ]
+}
