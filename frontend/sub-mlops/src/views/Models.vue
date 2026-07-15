@@ -40,7 +40,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog v-model="registerDialog" title="注册新模型" width="500px">
+    <el-dialog v-model="registerDialog" title="注册新模型" width="500px" :teleported="false">
       <el-form :model="form" label-width="100px">
         <el-form-item label="模型名称" required><el-input v-model="form.name" /></el-form-item>
         <el-form-item label="版本" required><el-input v-model="form.version" placeholder="如 1.0.0" /></el-form-item>

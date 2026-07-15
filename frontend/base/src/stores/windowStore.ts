@@ -70,6 +70,16 @@ export const APP_DEFS = [
     defaultWidth: 1200,
     defaultHeight: 760,
   },
+  {
+    id: 'system-manager',
+    name: '系统管理',
+    title: '系统管理 - 用户权限',
+    icon: '🔐',
+    entry: '//localhost:3006',
+    color: '#ef4444',
+    defaultWidth: 1200,
+    defaultHeight: 780,
+  },
 ]
 
 export const useWindowStore = defineStore('windows', () => {

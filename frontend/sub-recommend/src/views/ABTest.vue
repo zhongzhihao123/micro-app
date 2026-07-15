@@ -43,7 +43,7 @@
     </el-table>
 
     <!-- 创建实验对话框 -->
-    <el-dialog v-model="createDialogVisible" title="创建 A/B 实验" width="550px">
+    <el-dialog v-model="createDialogVisible" title="创建 A/B 实验" width="550px" :teleported="false">
       <el-form :model="createForm" label-width="100px">
         <el-form-item label="实验名称" required>
           <el-input v-model="createForm.name" placeholder="如: 推荐算法v2 vs v3" />

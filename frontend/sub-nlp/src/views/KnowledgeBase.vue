@@ -71,7 +71,7 @@
     </div>
 
     <!-- 上传对话框 -->
-    <el-dialog v-model="uploadDialogVisible" title="上传文档" width="500px">
+    <el-dialog v-model="uploadDialogVisible" title="上传文档" width="500px" :teleported="false">
       <div class="upload-area">
         <el-icon :size="64" color="#C0C4CC"><UploadFilled /></el-icon>
         <p>将文件拖拽到此处，或点击选择文件</p>

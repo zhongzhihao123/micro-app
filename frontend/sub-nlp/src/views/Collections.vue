@@ -23,7 +23,7 @@
     </el-table>
 
     <!-- 创建对话框 -->
-    <el-dialog v-model="createDialogVisible" title="创建知识库集合" width="500px">
+    <el-dialog v-model="createDialogVisible" title="创建知识库集合" width="500px" :teleported="false">
       <el-form :model="createForm" label-width="100px">
         <el-form-item label="集合名称" required>
           <el-input v-model="createForm.name" placeholder="英文名称，如 tech_docs" />

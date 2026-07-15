@@ -33,7 +33,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog v-model="submitDialog" title="提交训练任务" width="500px">
+    <el-dialog v-model="submitDialog" title="提交训练任务" width="500px" :teleported="false">
       <el-form :model="trainForm" label-width="120px">
         <el-form-item label="模型名称" required><el-input v-model="trainForm.modelName" /></el-form-item>
         <el-form-item label="版本"><el-input v-model="trainForm.version" /></el-form-item>
