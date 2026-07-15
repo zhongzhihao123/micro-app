@@ -1,0 +1,309 @@
+version: '3.8'
+
+# ============================================================
+# AI System Platform - Docker Compose
+# 企业级 AI 平台本地开发环境
+# ============================================================
+
+services:
+  # ==================== 基础设施 ====================
+
+  # MySQL - 业务数据库（所有微服务共享）
+  # 镜像: mysql:8.4 | 端口: 3307→3306 | 字符集: utf8mb4
+  mysql:
+    image: mysql:8.4
+    container_name: aisys-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_USER: aisys
+      MYSQL_PASSWORD: aisys123
+      MYSQL_DATABASE: ai_platform
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./infrastructure/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "aisys", "-paisys123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - aisys-network
+
+  # Redis - 缓存 & 会话存储
+  redis:
+    image: redis:7-alpine
+    container_name: aisys-redis
+    command: redis-server --appendonly yes --requirepass aisys_redis_2024
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - aisys-network
+
+  # RabbitMQ - 消息队列
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: aisys-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: aisys
+      RABBITMQ_DEFAULT_PASS: aisys123
+      RABBITMQ_DEFAULT_VHOST: ai_platform
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./infrastructure/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - aisys-network
+
+  # Milvus Standalone - 向量数据库
+  etcd:
+    image: quay.io/coreos/etcd:v3.5.5
+    container_name: aisys-etcd
+    environment:
+      - ETCD_AUTO_COMPACTION_MODE=revision
+      - ETCD_AUTO_COMPACTION_RETENTION=1000
+      - ETCD_QUOTA_BACKEND_BYTES=4294967296
+      - ETCD_SNAPSHOT_COUNT=50000
+    volumes:
+      - etcd_data:/etcd
+    command: etcd -advertise-client-urls=http://127.0.0.1:2379 -listen-client-urls http://0.0.0.0:2379 --data-dir /etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - aisys-network
+
+  minio:
+    image: minio/minio:RELEASE.2023-03-20T20-16-18Z
+    container_name: aisys-minio
+    environment:
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    volumes:
+      - minio_data:/minio_data
+    command: minio server /minio_data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - aisys-network
+
+  milvus:
+    image: milvusdb/milvus:v2.4.0
+    container_name: aisys-milvus
+    depends_on:
+      etcd:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      ETCD_ENDPOINTS: etcd:2379
+      MINIO_ADDRESS: minio:9000
+      MINIO_ACCESS_KEY_ID: minioadmin
+      MINIO_SECRET_ACCESS_KEY: minioadmin
+    ports:
+      - "19530:19530"
+      - "9091:9091"
+    volumes:
+      - milvus_data:/var/lib/milvus
+    command: milvus run standalone
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - aisys-network
+
+  # ==================== 后端微服务 ====================
+
+  # API 网关
+  gateway:
+    build:
+      context: ./backend
+      dockerfile: gateway/Dockerfile
+    container_name: aisys-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+      - DATABASE_URL=mysql+aiomysql://aisys:aisys123@mysql:3306/ai_platform
+      - REDIS_URL=redis://:aisys_redis_2024@redis:6379/0
+      - RABBITMQ_URL=amqp://aisys:aisys123@rabbitmq:5672/ai_platform
+      - MILVUS_HOST=milvus
+      - MILVUS_PORT=19530
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      milvus:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn gateway.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aisys-network
+
+  # NLP 服务
+  nlp-service:
+    build:
+      context: ./backend
+      dockerfile: services/nlp/Dockerfile
+    container_name: aisys-nlp
+    environment:
+      - ENV=development
+      - DATABASE_URL=mysql+aiomysql://aisys:aisys123@mysql:3306/ai_platform
+      - REDIS_URL=redis://:aisys_redis_2024@redis:6379/0
+      - RABBITMQ_URL=amqp://aisys:aisys123@rabbitmq:5672/ai_platform
+      - MILVUS_HOST=milvus
+      - MILVUS_PORT=19530
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-3-small}
+    ports:
+      - "8001:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      milvus:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn services.nlp.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aisys-network
+
+  # 推荐系统服务
+  recommend-service:
+    build:
+      context: ./backend
+      dockerfile: services/recommend/Dockerfile
+    container_name: aisys-recommend
+    environment:
+      - ENV=development
+      - DATABASE_URL=mysql+aiomysql://aisys:aisys123@mysql:3306/ai_platform
+      - REDIS_URL=redis://:aisys_redis_2024@redis:6379/0
+      - RABBITMQ_URL=amqp://aisys:aisys123@rabbitmq:5672/ai_platform
+    ports:
+      - "8002:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn services.recommend.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aisys-network
+
+  # 计算机视觉服务
+  cv-service:
+    build:
+      context: ./backend
+      dockerfile: services/cv/Dockerfile
+    container_name: aisys-cv
+    environment:
+      - ENV=development
+      - DATABASE_URL=mysql+aiomysql://aisys:aisys123@mysql:3306/ai_platform
+      - REDIS_URL=redis://:aisys_redis_2024@redis:6379/0
+      - RABBITMQ_URL=amqp://aisys:aisys123@rabbitmq:5672/ai_platform
+    ports:
+      - "8003:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - cv_uploads:/app/uploads
+    command: uvicorn services.cv.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aisys-network
+
+  # MLOps 平台服务
+  mlops-service:
+    build:
+      context: ./backend
+      dockerfile: services/mlops/Dockerfile
+    container_name: aisys-mlops
+    environment:
+      - ENV=development
+      - DATABASE_URL=mysql+aiomysql://aisys:aisys123@mysql:3306/ai_platform
+      - REDIS_URL=redis://:aisys_redis_2024@redis:6379/0
+      - RABBITMQ_URL=amqp://aisys:aisys123@rabbitmq:5672/ai_platform
+    ports:
+      - "8004:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: uvicorn services.mlops.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - aisys-network
+
+  # ==================== 前端 ====================
+  frontend-base:
+    build:
+      context: ./frontend
+      dockerfile: base/Dockerfile
+    container_name: aisys-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/base/node_modules
+    command: sh -c "cd /app/base && npm run dev"
+    networks:
+      - aisys-network
+
+volumes:
+  mysql_data:
+  redis_data:
+  rabbitmq_data:
+  etcd_data:
+  minio_data:
+  milvus_data:
+  cv_uploads:
+
+networks:
+  aisys-network:
+    driver: bridge

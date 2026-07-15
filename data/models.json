@@ -1,0 +1,572 @@
+[
+  {
+    "id": "edb1b3c5-4089-40df-9f74-3800b72df5fc",
+    "name": "embedding-ada-v3",
+    "version": "v5.0.5",
+    "model_type": "regression",
+    "framework": "sklearn",
+    "description": "embedding-ada-v3 model for recommendation tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8439,
+      "precision": 0.8077,
+      "recall": 0.8386,
+      "f1_score": 0.8677,
+      "latency_p50_ms": 82.56,
+      "latency_p99_ms": 222.74
+    },
+    "created_by": "ac72818c-7a57-4ab8-8292-427c1da32ee5",
+    "created_at": "2026-02-21T08:50:40.193293+00:00"
+  },
+  {
+    "id": "b4cfb113-8e24-4bd8-b54d-732f4b018e5d",
+    "name": "clip-encoder",
+    "version": "v4.4.9",
+    "model_type": "regression",
+    "framework": "tensorflow",
+    "description": "clip-encoder model for regression tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.8976,
+      "precision": 0.8559,
+      "recall": 0.9277,
+      "f1_score": 0.8358,
+      "latency_p50_ms": 54.47,
+      "latency_p99_ms": 368.33
+    },
+    "created_by": "1f9e1bee-b92a-43ad-8752-df6f07a88309",
+    "created_at": "2026-03-19T08:50:40.193318+00:00"
+  },
+  {
+    "id": "846a424f-35ae-467e-8ed9-befea144e112",
+    "name": "gpt-rag-assistant",
+    "version": "v2.2.5",
+    "model_type": "detection",
+    "framework": "jax",
+    "description": "gpt-rag-assistant model for detection tasks",
+    "status": "staging",
+    "metrics": {
+      "accuracy": 0.969,
+      "precision": 0.9166,
+      "recall": 0.8703,
+      "f1_score": 0.9591,
+      "latency_p50_ms": 64.87,
+      "latency_p99_ms": 377.76
+    },
+    "created_by": "152e3d7e-330f-48de-9725-7fc49881c471",
+    "created_at": "2025-12-24T08:50:40.193332+00:00"
+  },
+  {
+    "id": "3c25f5e5-97a4-4105-bc97-d02037fdbc2a",
+    "name": "clip-encoder",
+    "version": "v2.4.7",
+    "model_type": "recommendation",
+    "framework": "sklearn",
+    "description": "clip-encoder model for custom tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.943,
+      "precision": 0.8059,
+      "recall": 0.7838,
+      "f1_score": 0.8258,
+      "latency_p50_ms": 56.01,
+      "latency_p99_ms": 59.56
+    },
+    "created_by": "d0e7e9d1-a478-4de8-9070-dfd73b35fa67",
+    "created_at": "2026-07-03T08:50:40.193344+00:00"
+  },
+  {
+    "id": "a0f8220b-3090-4062-945e-b3a2e9a3873e",
+    "name": "xgboost-ranker",
+    "version": "v4.6.6",
+    "model_type": "classification",
+    "framework": "sklearn",
+    "description": "xgboost-ranker model for recommendation tasks",
+    "status": "archived",
+    "metrics": {
+      "accuracy": 0.8221,
+      "precision": 0.922,
+      "recall": 0.9285,
+      "f1_score": 0.9353,
+      "latency_p50_ms": 34.3,
+      "latency_p99_ms": 319.97
+    },
+    "created_by": "442dab23-a3eb-4cb2-a199-8787a8383353",
+    "created_at": "2025-09-19T08:50:40.193352+00:00"
+  },
+  {
+    "id": "03eeb7eb-73c8-4067-a6a1-a28095702a03",
+    "name": "gpt-rag-assistant",
+    "version": "v2.7.7",
+    "model_type": "nlp",
+    "framework": "onnx",
+    "description": "gpt-rag-assistant model for classification tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8436,
+      "precision": 0.9245,
+      "recall": 0.9174,
+      "f1_score": 0.9588,
+      "latency_p50_ms": 20.37,
+      "latency_p99_ms": 49.97
+    },
+    "created_by": "508146e8-041a-424e-bd14-e9e544b86a6b",
+    "created_at": "2026-04-26T08:50:40.193361+00:00"
+  },
+  {
+    "id": "96f3242a-32ab-4c86-aa9b-8fcfefaf887e",
+    "name": "yolo-object-detector",
+    "version": "v5.1.5",
+    "model_type": "regression",
+    "framework": "onnx",
+    "description": "yolo-object-detector model for regression tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.893,
+      "precision": 0.9677,
+      "recall": 0.9564,
+      "f1_score": 0.8266,
+      "latency_p50_ms": 50.71,
+      "latency_p99_ms": 480.3
+    },
+    "created_by": "b320b5cb-f512-46be-81ef-05a5ffc215d9",
+    "created_at": "2025-12-23T08:50:40.193370+00:00"
+  },
+  {
+    "id": "3663842d-5a24-4a06-84f2-42ab3e175717",
+    "name": "whisper-transcriber",
+    "version": "v4.2.4",
+    "model_type": "regression",
+    "framework": "jax",
+    "description": "whisper-transcriber model for regression tasks",
+    "status": "archived",
+    "metrics": {
+      "accuracy": 0.854,
+      "precision": 0.8042,
+      "recall": 0.9276,
+      "f1_score": 0.8082,
+      "latency_p50_ms": 76.36,
+      "latency_p99_ms": 443.7
+    },
+    "created_by": "e9379f4a-7c21-4180-8237-722d4c67d004",
+    "created_at": "2026-05-15T08:50:40.193381+00:00"
+  },
+  {
+    "id": "21be0eaa-b7fe-4c90-8757-8a03518e152c",
+    "name": "dalle-image-gen",
+    "version": "v3.4.6",
+    "model_type": "classification",
+    "framework": "jax",
+    "description": "dalle-image-gen model for regression tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8674,
+      "precision": 0.8951,
+      "recall": 0.8475,
+      "f1_score": 0.8977,
+      "latency_p50_ms": 51.3,
+      "latency_p99_ms": 175.25
+    },
+    "created_by": "530672d6-d58e-4345-80d6-bd40757cae94",
+    "created_at": "2025-10-06T08:50:40.193391+00:00"
+  },
+  {
+    "id": "c72af8a9-d494-4653-a5cf-7515555bb091",
+    "name": "xgboost-ranker",
+    "version": "v2.3.3",
+    "model_type": "classification",
+    "framework": "onnx",
+    "description": "xgboost-ranker model for custom tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.8562,
+      "precision": 0.9018,
+      "recall": 0.8479,
+      "f1_score": 0.8175,
+      "latency_p50_ms": 51.55,
+      "latency_p99_ms": 54.32
+    },
+    "created_by": "f51a0ce8-cc59-4d9b-af4f-8a6a2d840a30",
+    "created_at": "2025-08-21T08:50:40.193415+00:00"
+  },
+  {
+    "id": "33bd4c9c-8580-444d-a077-b1298c24c7ce",
+    "name": "lightgbm-ctr-predictor",
+    "version": "v1.4.1",
+    "model_type": "nlp",
+    "framework": "onnx",
+    "description": "lightgbm-ctr-predictor model for recommendation tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.9373,
+      "precision": 0.8694,
+      "recall": 0.8492,
+      "f1_score": 0.9165,
+      "latency_p50_ms": 58.17,
+      "latency_p99_ms": 461.03
+    },
+    "created_by": "4777d4af-7fc6-4f17-990c-c07bab547e55",
+    "created_at": "2025-09-04T08:50:40.193424+00:00"
+  },
+  {
+    "id": "39661939-eb1b-41c5-8998-8bedad63ec2d",
+    "name": "dalle-image-gen",
+    "version": "v2.2.7",
+    "model_type": "recommendation",
+    "framework": "sklearn",
+    "description": "dalle-image-gen model for classification tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8455,
+      "precision": 0.8894,
+      "recall": 0.9052,
+      "f1_score": 0.9596,
+      "latency_p50_ms": 78.93,
+      "latency_p99_ms": 218.3
+    },
+    "created_by": "bd18efed-8229-4184-a112-1fccd3d39ce5",
+    "created_at": "2026-01-10T08:50:40.193432+00:00"
+  },
+  {
+    "id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "name": "t5-summarizer",
+    "version": "v1.1.2",
+    "model_type": "classification",
+    "framework": "jax",
+    "description": "t5-summarizer model for custom tasks",
+    "status": "archived",
+    "metrics": {
+      "accuracy": 0.9484,
+      "precision": 0.9375,
+      "recall": 0.8273,
+      "f1_score": 0.915,
+      "latency_p50_ms": 72.91,
+      "latency_p99_ms": 187.05
+    },
+    "created_by": "0b3db1d7-6694-40ef-9f3d-9aa3d0633b84",
+    "created_at": "2026-04-07T08:50:40.193440+00:00"
+  },
+  {
+    "id": "77501532-e707-45cd-85b6-73aefafdae61",
+    "name": "transformer-forecaster",
+    "version": "v2.0.1",
+    "model_type": "recommendation",
+    "framework": "sklearn",
+    "description": "transformer-forecaster model for detection tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8635,
+      "precision": 0.9242,
+      "recall": 0.7905,
+      "f1_score": 0.9346,
+      "latency_p50_ms": 64.24,
+      "latency_p99_ms": 159.18
+    },
+    "created_by": "bedbd830-4592-40c4-9506-dd69fe754ec1",
+    "created_at": "2026-01-10T08:50:40.193448+00:00"
+  },
+  {
+    "id": "84d62f89-0df2-4cbb-ab69-cd2da6aa0f9c",
+    "name": "embedding-ada-v3",
+    "version": "v3.5.2",
+    "model_type": "classification",
+    "framework": "pytorch",
+    "description": "embedding-ada-v3 model for regression tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.826,
+      "precision": 0.9294,
+      "recall": 0.8708,
+      "f1_score": 0.9133,
+      "latency_p50_ms": 5.16,
+      "latency_p99_ms": 236.98
+    },
+    "created_by": "5cb276f2-60d3-44f9-9cc5-7a74528ff653",
+    "created_at": "2025-08-22T08:50:40.193455+00:00"
+  },
+  {
+    "id": "4b23fade-ddaf-48ee-9042-937d03eb1a2d",
+    "name": "clip-encoder",
+    "version": "v3.2.1",
+    "model_type": "regression",
+    "framework": "pytorch",
+    "description": "clip-encoder model for classification tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.8254,
+      "precision": 0.8692,
+      "recall": 0.8673,
+      "f1_score": 0.8802,
+      "latency_p50_ms": 18.71,
+      "latency_p99_ms": 39.41
+    },
+    "created_by": "ed777683-9c6e-4957-a968-f5b823802b0e",
+    "created_at": "2025-10-17T08:50:40.193463+00:00"
+  },
+  {
+    "id": "016047e0-ed44-4f80-ab5d-0da98a30b11a",
+    "name": "lstm-time-series",
+    "version": "v3.4.2",
+    "model_type": "detection",
+    "framework": "onnx",
+    "description": "lstm-time-series model for custom tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8894,
+      "precision": 0.9198,
+      "recall": 0.8491,
+      "f1_score": 0.8242,
+      "latency_p50_ms": 20.71,
+      "latency_p99_ms": 46.48
+    },
+    "created_by": "780b60fe-a479-4b5c-864d-a99612a9a83f",
+    "created_at": "2025-08-18T08:50:40.193471+00:00"
+  },
+  {
+    "id": "d355cbcf-c89b-4866-8c2e-2f9f76622b0b",
+    "name": "transformer-forecaster",
+    "version": "v3.1.7",
+    "model_type": "classification",
+    "framework": "pytorch",
+    "description": "transformer-forecaster model for detection tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.9741,
+      "precision": 0.8651,
+      "recall": 0.8187,
+      "f1_score": 0.9245,
+      "latency_p50_ms": 63.91,
+      "latency_p99_ms": 355.04
+    },
+    "created_by": "983a1706-5797-4f22-a448-47fd61686404",
+    "created_at": "2025-08-17T08:50:40.193478+00:00"
+  },
+  {
+    "id": "8133fb57-5f6d-48c1-bf32-b9a7fd93a244",
+    "name": "clip-encoder",
+    "version": "v1.7.0",
+    "model_type": "nlp",
+    "framework": "onnx",
+    "description": "clip-encoder model for custom tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.9026,
+      "precision": 0.8837,
+      "recall": 0.9087,
+      "f1_score": 0.8569,
+      "latency_p50_ms": 54.82,
+      "latency_p99_ms": 393.21
+    },
+    "created_by": "7b221bc2-7862-40b8-8e7b-b41060052c13",
+    "created_at": "2026-04-08T08:50:40.193486+00:00"
+  },
+  {
+    "id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "name": "mistral-instruct",
+    "version": "v5.5.1",
+    "model_type": "nlp",
+    "framework": "onnx",
+    "description": "mistral-instruct model for custom tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8422,
+      "precision": 0.8517,
+      "recall": 0.867,
+      "f1_score": 0.8068,
+      "latency_p50_ms": 54.5,
+      "latency_p99_ms": 354.89
+    },
+    "created_by": "999fa847-4c8f-4075-bed7-0e5832b75ea8",
+    "created_at": "2025-11-27T08:50:40.193494+00:00"
+  },
+  {
+    "id": "5838b66b-5d1d-430f-91b7-6d39ed3dad06",
+    "name": "whisper-transcriber",
+    "version": "v2.2.5",
+    "model_type": "detection",
+    "framework": "tensorflow",
+    "description": "whisper-transcriber model for recommendation tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.8452,
+      "precision": 0.9432,
+      "recall": 0.8353,
+      "f1_score": 0.8949,
+      "latency_p50_ms": 19.82,
+      "latency_p99_ms": 413.13
+    },
+    "created_by": "c90bc0a6-fa10-475f-b816-f077210d8158",
+    "created_at": "2026-04-22T08:50:40.193501+00:00"
+  },
+  {
+    "id": "bda4f275-7a27-4143-887f-fbcf83678618",
+    "name": "yolo-object-detector",
+    "version": "v4.3.4",
+    "model_type": "recommendation",
+    "framework": "tensorflow",
+    "description": "yolo-object-detector model for nlp tasks",
+    "status": "staging",
+    "metrics": {
+      "accuracy": 0.8577,
+      "precision": 0.9269,
+      "recall": 0.9132,
+      "f1_score": 0.9522,
+      "latency_p50_ms": 27.03,
+      "latency_p99_ms": 21.36
+    },
+    "created_by": "645eb4e5-b9ca-4233-9286-33e808f3d6f9",
+    "created_at": "2025-12-15T08:50:40.193509+00:00"
+  },
+  {
+    "id": "07b65a5e-98c0-449c-85fe-288e2690be31",
+    "name": "deepfm-recommender",
+    "version": "v3.0.3",
+    "model_type": "recommendation",
+    "framework": "pytorch",
+    "description": "deepfm-recommender model for recommendation tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.9765,
+      "precision": 0.9257,
+      "recall": 0.9419,
+      "f1_score": 0.8145,
+      "latency_p50_ms": 34.96,
+      "latency_p99_ms": 99.42
+    },
+    "created_by": "c9dce3bd-7ca6-4a70-bb20-fb80be2c0220",
+    "created_at": "2025-09-17T08:50:40.193516+00:00"
+  },
+  {
+    "id": "be9ba34f-5bcc-4241-a471-e28f70926d32",
+    "name": "stable-diffusion-v2",
+    "version": "v1.1.0",
+    "model_type": "detection",
+    "framework": "onnx",
+    "description": "stable-diffusion-v2 model for regression tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.8549,
+      "precision": 0.8618,
+      "recall": 0.7878,
+      "f1_score": 0.8917,
+      "latency_p50_ms": 82.67,
+      "latency_p99_ms": 301.98
+    },
+    "created_by": "0284737f-9ac0-4904-8bd3-baae87902aef",
+    "created_at": "2026-03-12T08:50:40.193524+00:00"
+  },
+  {
+    "id": "d4f2075d-df0e-4c4e-9b0a-4009e26b6891",
+    "name": "deepfm-recommender",
+    "version": "v5.6.0",
+    "model_type": "classification",
+    "framework": "jax",
+    "description": "deepfm-recommender model for nlp tasks",
+    "status": "development",
+    "metrics": {
+      "accuracy": 0.9603,
+      "precision": 0.8687,
+      "recall": 0.8325,
+      "f1_score": 0.8895,
+      "latency_p50_ms": 40.49,
+      "latency_p99_ms": 270.28
+    },
+    "created_by": "eef0f45d-dae5-4985-af6f-512adf611847",
+    "created_at": "2026-04-25T08:50:40.193532+00:00"
+  },
+  {
+    "id": "3cfb6cab-8d49-4072-87f7-5705af97f575",
+    "name": "efficientnet-classifier",
+    "version": "v4.7.6",
+    "model_type": "recommendation",
+    "framework": "onnx",
+    "description": "efficientnet-classifier model for nlp tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8737,
+      "precision": 0.9178,
+      "recall": 0.9315,
+      "f1_score": 0.9506,
+      "latency_p50_ms": 34.61,
+      "latency_p99_ms": 87.94
+    },
+    "created_by": "cdabfadf-5f07-465d-b14b-07fe6f1baf05",
+    "created_at": "2025-11-02T08:50:40.193540+00:00"
+  },
+  {
+    "id": "9c41993b-6e49-428a-a8a8-046b141692ba",
+    "name": "stable-diffusion-v2",
+    "version": "v1.9.3",
+    "model_type": "regression",
+    "framework": "onnx",
+    "description": "stable-diffusion-v2 model for regression tasks",
+    "status": "staging",
+    "metrics": {
+      "accuracy": 0.9333,
+      "precision": 0.9402,
+      "recall": 0.8362,
+      "f1_score": 0.8475,
+      "latency_p50_ms": 86.52,
+      "latency_p99_ms": 386.26
+    },
+    "created_by": "bad113ca-cfd9-4bf4-afb9-c9d392fcbfe0",
+    "created_at": "2026-05-28T08:50:40.193548+00:00"
+  },
+  {
+    "id": "dba73a39-87d7-4583-9a00-79a8327160f2",
+    "name": "clip-encoder",
+    "version": "v5.5.2",
+    "model_type": "regression",
+    "framework": "jax",
+    "description": "clip-encoder model for classification tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.9761,
+      "precision": 0.9035,
+      "recall": 0.861,
+      "f1_score": 0.9171,
+      "latency_p50_ms": 22.25,
+      "latency_p99_ms": 30.44
+    },
+    "created_by": "48639d54-ddc9-44d5-a8ff-bf261896f265",
+    "created_at": "2025-07-20T08:50:40.193555+00:00"
+  },
+  {
+    "id": "3c6813eb-cfd3-4d4d-9ca1-c870d35e45b2",
+    "name": "lightgbm-ctr-predictor",
+    "version": "v4.7.7",
+    "model_type": "recommendation",
+    "framework": "tensorflow",
+    "description": "lightgbm-ctr-predictor model for classification tasks",
+    "status": "production",
+    "metrics": {
+      "accuracy": 0.8483,
+      "precision": 0.8086,
+      "recall": 0.8861,
+      "f1_score": 0.8879,
+      "latency_p50_ms": 72.56,
+      "latency_p99_ms": 122.31
+    },
+    "created_by": "dee1d108-07bb-4be0-8dea-521da8e5d0c8",
+    "created_at": "2026-03-18T08:50:40.193563+00:00"
+  },
+  {
+    "id": "3335830e-dc29-4bf2-8159-846c0d89d9b5",
+    "name": "gpt-rag-assistant",
+    "version": "v3.5.3",
+    "model_type": "regression",
+    "framework": "sklearn",
+    "description": "gpt-rag-assistant model for regression tasks",
+    "status": "archived",
+    "metrics": {
+      "accuracy": 0.9211,
+      "precision": 0.9552,
+      "recall": 0.9569,
+      "f1_score": 0.9105,
+      "latency_p50_ms": 25.68,
+      "latency_p99_ms": 439.17
+    },
+    "created_by": "275997f6-2422-4642-8b38-73dd28515571",
+    "created_at": "2025-12-03T08:50:40.193570+00:00"
+  }
+]

@@ -1,0 +1,362 @@
+[
+  {
+    "id": "b6f7d81d-75db-48aa-a2a3-b6f5fb6cea06",
+    "name": "实验-数据增强-01",
+    "model_a_id": "d355cbcf-c89b-4866-8c2e-2f9f76622b0b",
+    "model_b_id": "bda4f275-7a27-4143-887f-fbcf83678618",
+    "traffic_split": 0.31,
+    "status": "stopped",
+    "metrics": {
+      "accuracy_a": 0.9286,
+      "accuracy_b": 0.919,
+      "latency_a_ms": 80.71,
+      "latency_b_ms": 65.77,
+      "p_value": 0.4506
+    },
+    "started_at": "2026-07-01T08:50:40.195249+00:00",
+    "ended_at": null,
+    "created_at": "2026-05-25T08:50:40.195251+00:00"
+  },
+  {
+    "id": "d6ed7517-3d70-4b17-9913-4d8cc1f9b718",
+    "name": "实验-数据增强-02",
+    "model_a_id": "3c25f5e5-97a4-4105-bc97-d02037fdbc2a",
+    "model_b_id": "bda4f275-7a27-4143-887f-fbcf83678618",
+    "traffic_split": 0.14,
+    "status": "draft",
+    "metrics": {
+      "accuracy_a": 0.8586,
+      "accuracy_b": 0.9164,
+      "latency_a_ms": 46.56,
+      "latency_b_ms": 84.87,
+      "p_value": 0.135
+    },
+    "started_at": null,
+    "ended_at": null,
+    "created_at": "2026-05-31T08:50:40.195261+00:00"
+  },
+  {
+    "id": "0b8629d7-5640-4eac-b324-a1ef99d9a426",
+    "name": "实验-数据增强-03",
+    "model_a_id": "be9ba34f-5bcc-4241-a471-e28f70926d32",
+    "model_b_id": "8133fb57-5f6d-48c1-bf32-b9a7fd93a244",
+    "traffic_split": 0.76,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.9039,
+      "accuracy_b": 0.8522,
+      "latency_a_ms": 25.23,
+      "latency_b_ms": 31.48,
+      "p_value": 0.024
+    },
+    "started_at": "2026-06-17T08:50:40.195273+00:00",
+    "ended_at": "2026-07-13T19:50:40.195275+00:00",
+    "created_at": "2026-06-26T08:50:40.195277+00:00"
+  },
+  {
+    "id": "87f65448-4c5e-4e6f-b021-0f8184a1b03f",
+    "name": "实验-特征工程-04",
+    "model_a_id": "5838b66b-5d1d-430f-91b7-6d39ed3dad06",
+    "model_b_id": "016047e0-ed44-4f80-ab5d-0da98a30b11a",
+    "traffic_split": 0.28,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.8932,
+      "accuracy_b": 0.9518,
+      "latency_a_ms": 31.59,
+      "latency_b_ms": 55.62,
+      "p_value": 0.4554
+    },
+    "started_at": "2026-07-01T08:50:40.195286+00:00",
+    "ended_at": null,
+    "created_at": "2026-06-04T08:50:40.195287+00:00"
+  },
+  {
+    "id": "b9f4cefa-e639-4c52-8f56-435ce470fb00",
+    "name": "实验-损失函数对比-05",
+    "model_a_id": "d355cbcf-c89b-4866-8c2e-2f9f76622b0b",
+    "model_b_id": "be9ba34f-5bcc-4241-a471-e28f70926d32",
+    "traffic_split": 0.33,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.9418,
+      "accuracy_b": 0.9122,
+      "latency_a_ms": 93.56,
+      "latency_b_ms": 12.21,
+      "p_value": 0.0887
+    },
+    "started_at": "2026-07-09T08:50:40.195295+00:00",
+    "ended_at": "2026-07-14T00:50:40.195297+00:00",
+    "created_at": "2026-06-25T08:50:40.195298+00:00"
+  },
+  {
+    "id": "2cffd6e2-6412-4e52-a6c2-fe5f87650a7d",
+    "name": "实验-超参调优-06",
+    "model_a_id": "b4cfb113-8e24-4bd8-b54d-732f4b018e5d",
+    "model_b_id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "traffic_split": 0.71,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.8551,
+      "accuracy_b": 0.897,
+      "latency_a_ms": 49.07,
+      "latency_b_ms": 26.45,
+      "p_value": 0.0705
+    },
+    "started_at": "2026-07-05T08:50:40.195306+00:00",
+    "ended_at": "2026-07-13T09:50:40.195308+00:00",
+    "created_at": "2026-05-24T08:50:40.195310+00:00"
+  },
+  {
+    "id": "ab908e6a-4d6b-4104-8a24-aa5410a05bd6",
+    "name": "实验-超参调优-07",
+    "model_a_id": "846a424f-35ae-467e-8ed9-befea144e112",
+    "model_b_id": "a0f8220b-3090-4062-945e-b3a2e9a3873e",
+    "traffic_split": 0.78,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.9684,
+      "accuracy_b": 0.9454,
+      "latency_a_ms": 55.7,
+      "latency_b_ms": 10.49,
+      "p_value": 0.1608
+    },
+    "started_at": "2026-07-10T08:50:40.195317+00:00",
+    "ended_at": null,
+    "created_at": "2026-05-17T08:50:40.195319+00:00"
+  },
+  {
+    "id": "d8480d75-6b43-4cdd-8050-aa648d2b837d",
+    "name": "实验-架构对比-08",
+    "model_a_id": "03eeb7eb-73c8-4067-a6a1-a28095702a03",
+    "model_b_id": "dba73a39-87d7-4583-9a00-79a8327160f2",
+    "traffic_split": 0.5,
+    "status": "draft",
+    "metrics": {
+      "accuracy_a": 0.8948,
+      "accuracy_b": 0.8863,
+      "latency_a_ms": 51.82,
+      "latency_b_ms": 9.25,
+      "p_value": 0.4008
+    },
+    "started_at": null,
+    "ended_at": null,
+    "created_at": "2026-06-07T08:50:40.195329+00:00"
+  },
+  {
+    "id": "72f85873-178e-41c2-be93-f5e55b19d29b",
+    "name": "实验-架构对比-09",
+    "model_a_id": "77501532-e707-45cd-85b6-73aefafdae61",
+    "model_b_id": "3c25f5e5-97a4-4105-bc97-d02037fdbc2a",
+    "traffic_split": 0.4,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.9232,
+      "accuracy_b": 0.9117,
+      "latency_a_ms": 98.48,
+      "latency_b_ms": 80.21,
+      "p_value": 0.4352
+    },
+    "started_at": "2026-06-23T08:50:40.195338+00:00",
+    "ended_at": "2026-07-13T20:50:40.195339+00:00",
+    "created_at": "2026-06-18T08:50:40.195341+00:00"
+  },
+  {
+    "id": "20438231-8d25-4a5a-8399-72c17e699c7c",
+    "name": "实验-损失函数对比-10",
+    "model_a_id": "3c25f5e5-97a4-4105-bc97-d02037fdbc2a",
+    "model_b_id": "84d62f89-0df2-4cbb-ab69-cd2da6aa0f9c",
+    "traffic_split": 0.5,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.9165,
+      "accuracy_b": 0.9413,
+      "latency_a_ms": 48.18,
+      "latency_b_ms": 79.58,
+      "p_value": 0.2638
+    },
+    "started_at": "2026-07-03T08:50:40.195349+00:00",
+    "ended_at": "2026-07-14T00:50:40.195350+00:00",
+    "created_at": "2026-05-28T08:50:40.195352+00:00"
+  },
+  {
+    "id": "6d31cdac-3a66-4379-90f8-59fbed9e5471",
+    "name": "实验-数据增强-11",
+    "model_a_id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "model_b_id": "84d62f89-0df2-4cbb-ab69-cd2da6aa0f9c",
+    "traffic_split": 0.74,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.9236,
+      "accuracy_b": 0.8549,
+      "latency_a_ms": 65.94,
+      "latency_b_ms": 93.55,
+      "p_value": 0.4374
+    },
+    "started_at": "2026-06-25T08:50:40.195359+00:00",
+    "ended_at": null,
+    "created_at": "2026-06-07T08:50:40.195361+00:00"
+  },
+  {
+    "id": "e902dee9-d941-42e7-a3b2-e30e2f3a917b",
+    "name": "实验-推荐算法优化-12",
+    "model_a_id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "model_b_id": "d4f2075d-df0e-4c4e-9b0a-4009e26b6891",
+    "traffic_split": 0.3,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.915,
+      "accuracy_b": 0.9614,
+      "latency_a_ms": 75.28,
+      "latency_b_ms": 98.51,
+      "p_value": 0.3166
+    },
+    "started_at": "2026-06-20T08:50:40.195368+00:00",
+    "ended_at": null,
+    "created_at": "2026-06-15T08:50:40.195370+00:00"
+  },
+  {
+    "id": "b77c81d0-0c01-497d-8ba3-59c2dad93067",
+    "name": "实验-特征工程-13",
+    "model_a_id": "3cfb6cab-8d49-4072-87f7-5705af97f575",
+    "model_b_id": "c72af8a9-d494-4653-a5cf-7515555bb091",
+    "traffic_split": 0.79,
+    "status": "draft",
+    "metrics": {
+      "accuracy_a": 0.9508,
+      "accuracy_b": 0.9388,
+      "latency_a_ms": 87.18,
+      "latency_b_ms": 55.83,
+      "p_value": 0.2253
+    },
+    "started_at": null,
+    "ended_at": null,
+    "created_at": "2026-06-10T08:50:40.195377+00:00"
+  },
+  {
+    "id": "d42ebcfd-0bc7-4cb1-a702-8bbf30f956e1",
+    "name": "实验-模型压缩对比-14",
+    "model_a_id": "96f3242a-32ab-4c86-aa9b-8fcfefaf887e",
+    "model_b_id": "4b23fade-ddaf-48ee-9042-937d03eb1a2d",
+    "traffic_split": 0.47,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.916,
+      "accuracy_b": 0.8886,
+      "latency_a_ms": 88.63,
+      "latency_b_ms": 7.03,
+      "p_value": 0.1432
+    },
+    "started_at": "2026-07-01T08:50:40.195384+00:00",
+    "ended_at": null,
+    "created_at": "2026-05-24T08:50:40.195386+00:00"
+  },
+  {
+    "id": "57fa5d1d-2ccd-4b21-b5ab-3534e8a5e5c7",
+    "name": "实验-架构对比-15",
+    "model_a_id": "a0f8220b-3090-4062-945e-b3a2e9a3873e",
+    "model_b_id": "b4cfb113-8e24-4bd8-b54d-732f4b018e5d",
+    "traffic_split": 0.77,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.8905,
+      "accuracy_b": 0.8892,
+      "latency_a_ms": 35.16,
+      "latency_b_ms": 42.03,
+      "p_value": 0.3455
+    },
+    "started_at": "2026-06-20T08:50:40.195393+00:00",
+    "ended_at": null,
+    "created_at": "2026-05-26T08:50:40.195395+00:00"
+  },
+  {
+    "id": "5b0865bf-d0b1-47df-b801-bb797b587977",
+    "name": "实验-模型压缩对比-16",
+    "model_a_id": "96f3242a-32ab-4c86-aa9b-8fcfefaf887e",
+    "model_b_id": "be9ba34f-5bcc-4241-a471-e28f70926d32",
+    "traffic_split": 0.27,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.9243,
+      "accuracy_b": 0.9456,
+      "latency_a_ms": 82.04,
+      "latency_b_ms": 89.03,
+      "p_value": 0.1062
+    },
+    "started_at": "2026-07-12T08:50:40.195402+00:00",
+    "ended_at": null,
+    "created_at": "2026-05-17T08:50:40.195404+00:00"
+  },
+  {
+    "id": "a8b5ee40-6a05-4062-94f7-cecb17be0168",
+    "name": "实验-模型压缩对比-17",
+    "model_a_id": "d4f2075d-df0e-4c4e-9b0a-4009e26b6891",
+    "model_b_id": "03eeb7eb-73c8-4067-a6a1-a28095702a03",
+    "traffic_split": 0.15,
+    "status": "running",
+    "metrics": {
+      "accuracy_a": 0.9091,
+      "accuracy_b": 0.9399,
+      "latency_a_ms": 96.91,
+      "latency_b_ms": 57.15,
+      "p_value": 0.0938
+    },
+    "started_at": "2026-07-13T08:50:40.195411+00:00",
+    "ended_at": null,
+    "created_at": "2026-06-24T08:50:40.195412+00:00"
+  },
+  {
+    "id": "3fda1457-b670-47c3-a3f9-69d2e04234ba",
+    "name": "实验-超参调优-18",
+    "model_a_id": "84d62f89-0df2-4cbb-ab69-cd2da6aa0f9c",
+    "model_b_id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "traffic_split": 0.5,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.8555,
+      "accuracy_b": 0.9408,
+      "latency_a_ms": 21.57,
+      "latency_b_ms": 24.08,
+      "p_value": 0.3863
+    },
+    "started_at": "2026-06-17T08:50:40.195420+00:00",
+    "ended_at": "2026-07-13T09:50:40.195421+00:00",
+    "created_at": "2026-06-07T08:50:40.195423+00:00"
+  },
+  {
+    "id": "4715e97d-1833-4683-aa18-e7a4519b7b60",
+    "name": "实验-优化器对比-19",
+    "model_a_id": "be9ba34f-5bcc-4241-a471-e28f70926d32",
+    "model_b_id": "96f3242a-32ab-4c86-aa9b-8fcfefaf887e",
+    "traffic_split": 0.6,
+    "status": "draft",
+    "metrics": {
+      "accuracy_a": 0.935,
+      "accuracy_b": 0.8916,
+      "latency_a_ms": 5.65,
+      "latency_b_ms": 21.98,
+      "p_value": 0.0658
+    },
+    "started_at": null,
+    "ended_at": null,
+    "created_at": "2026-05-21T08:50:40.195430+00:00"
+  },
+  {
+    "id": "220967f5-4a0c-4040-b185-2ab425ef32de",
+    "name": "实验-特征工程-20",
+    "model_a_id": "a0f8220b-3090-4062-945e-b3a2e9a3873e",
+    "model_b_id": "5838b66b-5d1d-430f-91b7-6d39ed3dad06",
+    "traffic_split": 0.81,
+    "status": "completed",
+    "metrics": {
+      "accuracy_a": 0.8582,
+      "accuracy_b": 0.8751,
+      "latency_a_ms": 6.38,
+      "latency_b_ms": 32.15,
+      "p_value": 0.4418
+    },
+    "started_at": "2026-06-15T08:50:40.195438+00:00",
+    "ended_at": "2026-07-13T23:50:40.195439+00:00",
+    "created_at": "2026-05-29T08:50:40.195441+00:00"
+  }
+]

@@ -1,0 +1,1014 @@
+[
+  {
+    "id": "abd307e5-b3f4-4d60-98e5-cc0a4ab4d20c",
+    "model_id": "016047e0-ed44-4f80-ab5d-0da98a30b11a",
+    "job_name": "training-run-0001",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 128,
+      "learning_rate": 0.000884,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.635,
+      "val_loss": 2.0455,
+      "val_accuracy": 0.9226
+    },
+    "started_at": "2026-07-07T16:50:40.194181+00:00",
+    "completed_at": "2026-07-14T07:34:40.194185+00:00",
+    "error_message": null,
+    "created_at": "2026-07-11T08:50:40.194187+00:00"
+  },
+  {
+    "id": "1f21ee4e-62e6-458e-90ac-2ccfdb414f16",
+    "model_id": "d355cbcf-c89b-4866-8c2e-2f9f76622b0b",
+    "job_name": "training-run-0002",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 128,
+      "learning_rate": 0.000227,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.4393,
+      "val_loss": 1.9077,
+      "val_accuracy": 0.9595
+    },
+    "started_at": "2026-07-08T16:50:40.194196+00:00",
+    "completed_at": "2026-07-14T06:50:40.194198+00:00",
+    "error_message": null,
+    "created_at": "2026-07-10T08:50:40.194200+00:00"
+  },
+  {
+    "id": "8dafa768-fd15-402a-a0a6-77dfa50edaa1",
+    "model_id": "bda4f275-7a27-4143-887f-fbcf83678618",
+    "job_name": "training-run-0003",
+    "status": "queued",
+    "config": {
+      "epochs": 30,
+      "batch_size": 32,
+      "learning_rate": 0.000945,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-07T08:50:40.194208+00:00"
+  },
+  {
+    "id": "5a9cf763-ddfa-48ba-a50b-e31aec4a333e",
+    "model_id": "3c25f5e5-97a4-4105-bc97-d02037fdbc2a",
+    "job_name": "training-run-0004",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 16,
+      "learning_rate": 0.000465,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.2032,
+      "val_loss": 2.3313,
+      "val_accuracy": 0.7972
+    },
+    "started_at": "2026-07-10T13:50:40.194215+00:00",
+    "completed_at": "2026-07-14T08:03:40.194217+00:00",
+    "error_message": null,
+    "created_at": "2026-06-18T08:50:40.194219+00:00"
+  },
+  {
+    "id": "95f3a3d5-bb58-4ff8-83b5-5a8c9b0ceaee",
+    "model_id": "c72af8a9-d494-4653-a5cf-7515555bb091",
+    "job_name": "training-run-0005",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 16,
+      "learning_rate": 0.000567,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.2313,
+      "val_loss": 1.0147,
+      "val_accuracy": 0.7292
+    },
+    "started_at": "2026-07-10T08:50:40.194226+00:00",
+    "completed_at": "2026-07-14T07:38:40.194227+00:00",
+    "error_message": null,
+    "created_at": "2026-06-27T08:50:40.194229+00:00"
+  },
+  {
+    "id": "dabb9cb9-9a57-4f72-a1ae-84cfa773fe25",
+    "model_id": null,
+    "job_name": "training-run-0006",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 128,
+      "learning_rate": 0.000836,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-14T05:50:40.194235+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-17T08:50:40.194237+00:00"
+  },
+  {
+    "id": "dfebca79-4df7-4e6a-a905-017ccb433abf",
+    "model_id": null,
+    "job_name": "training-run-0007",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 32,
+      "learning_rate": 0.000645,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.3789,
+      "val_loss": 2.1957,
+      "val_accuracy": 0.7521
+    },
+    "started_at": "2026-07-10T04:50:40.194244+00:00",
+    "completed_at": "2026-07-14T08:43:40.194245+00:00",
+    "error_message": null,
+    "created_at": "2026-07-02T08:50:40.194247+00:00"
+  },
+  {
+    "id": "20cf73c6-7aaa-4104-97c6-d62c680e020c",
+    "model_id": "d4f2075d-df0e-4c4e-9b0a-4009e26b6891",
+    "job_name": "training-run-0008",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 128,
+      "learning_rate": 0.000629,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-14T05:50:40.194256+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-03T08:50:40.194258+00:00"
+  },
+  {
+    "id": "905e67cd-e795-40d8-8669-e045631690a7",
+    "model_id": "a0f8220b-3090-4062-945e-b3a2e9a3873e",
+    "job_name": "training-run-0009",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 32,
+      "learning_rate": 0.000737,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.7766,
+      "val_loss": 1.8048,
+      "val_accuracy": 0.7234
+    },
+    "started_at": "2026-07-14T07:50:40.194266+00:00",
+    "completed_at": "2026-07-14T07:21:40.194267+00:00",
+    "error_message": null,
+    "created_at": "2026-07-09T08:50:40.194269+00:00"
+  },
+  {
+    "id": "a43a4ddb-e38d-4a9c-a480-03d2d5e054ca",
+    "model_id": null,
+    "job_name": "training-run-0010",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 16,
+      "learning_rate": 0.000941,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-11T16:50:40.194275+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-09T08:50:40.194277+00:00"
+  },
+  {
+    "id": "9f0aea62-2c9b-43a8-89a4-bbd202681751",
+    "model_id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "job_name": "training-run-0011",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 16,
+      "learning_rate": 0.000939,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.6235,
+      "val_loss": 0.5868,
+      "val_accuracy": 0.7838
+    },
+    "started_at": "2026-07-07T19:50:40.194284+00:00",
+    "completed_at": "2026-07-14T07:37:40.194285+00:00",
+    "error_message": null,
+    "created_at": "2026-06-19T08:50:40.194287+00:00"
+  },
+  {
+    "id": "ca701cfa-8bf1-43ee-a88f-0b2557b3050f",
+    "model_id": null,
+    "job_name": "training-run-0012",
+    "status": "queued",
+    "config": {
+      "epochs": 50,
+      "batch_size": 64,
+      "learning_rate": 0.000956,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-15T08:50:40.194293+00:00"
+  },
+  {
+    "id": "41083304-7e6e-4d1f-8735-64790896c37e",
+    "model_id": null,
+    "job_name": "training-run-0013",
+    "status": "completed",
+    "config": {
+      "epochs": 10,
+      "batch_size": 16,
+      "learning_rate": 0.00065,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.8204,
+      "val_loss": 1.9501,
+      "val_accuracy": 0.7187
+    },
+    "started_at": "2026-07-13T13:50:40.194299+00:00",
+    "completed_at": "2026-07-14T07:42:40.194301+00:00",
+    "error_message": null,
+    "created_at": "2026-06-21T08:50:40.194302+00:00"
+  },
+  {
+    "id": "30179580-1d8c-4be3-9356-4d37cf5ad415",
+    "model_id": "84d62f89-0df2-4cbb-ab69-cd2da6aa0f9c",
+    "job_name": "training-run-0014",
+    "status": "completed",
+    "config": {
+      "epochs": 10,
+      "batch_size": 16,
+      "learning_rate": 0.000571,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.7092,
+      "val_loss": 0.9395,
+      "val_accuracy": 0.8911
+    },
+    "started_at": "2026-07-11T02:50:40.194309+00:00",
+    "completed_at": "2026-07-14T06:51:40.194311+00:00",
+    "error_message": null,
+    "created_at": "2026-07-04T08:50:40.194312+00:00"
+  },
+  {
+    "id": "f07f4d5d-988d-492b-8bcc-d54749c6885f",
+    "model_id": null,
+    "job_name": "training-run-0015",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 16,
+      "learning_rate": 0.00023,
+      "optimizer": "adam",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 0.62,
+      "val_loss": 1.1638,
+      "val_accuracy": 0.9685
+    },
+    "started_at": "2026-07-08T04:50:40.194318+00:00",
+    "completed_at": "2026-07-14T07:35:40.194320+00:00",
+    "error_message": null,
+    "created_at": "2026-06-28T08:50:40.194322+00:00"
+  },
+  {
+    "id": "4e2d7be6-e86a-4242-8493-6aada72409b7",
+    "model_id": "3663842d-5a24-4a06-84f2-42ab3e175717",
+    "job_name": "training-run-0016",
+    "status": "completed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 16,
+      "learning_rate": 0.000933,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.9267,
+      "val_loss": 2.1501,
+      "val_accuracy": 0.7712
+    },
+    "started_at": "2026-07-09T04:50:40.194328+00:00",
+    "completed_at": "2026-07-14T08:35:40.194330+00:00",
+    "error_message": null,
+    "created_at": "2026-06-23T08:50:40.194331+00:00"
+  },
+  {
+    "id": "4d8df6b7-9191-4304-8d5a-42fe9aa7048c",
+    "model_id": "07b65a5e-98c0-449c-85fe-288e2690be31",
+    "job_name": "training-run-0017",
+    "status": "running",
+    "config": {
+      "epochs": 20,
+      "batch_size": 64,
+      "learning_rate": 0.0002,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-12T07:50:40.194337+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-11T08:50:40.194339+00:00"
+  },
+  {
+    "id": "c3ec9de3-41b6-4202-8160-9ec167b3e838",
+    "model_id": "3335830e-dc29-4bf2-8159-846c0d89d9b5",
+    "job_name": "training-run-0018",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 64,
+      "learning_rate": 0.000557,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.6698,
+      "val_loss": 1.9745,
+      "val_accuracy": 0.9292
+    },
+    "started_at": "2026-07-09T15:50:40.194345+00:00",
+    "completed_at": "2026-07-14T07:12:40.194347+00:00",
+    "error_message": null,
+    "created_at": "2026-06-26T08:50:40.194348+00:00"
+  },
+  {
+    "id": "17edf606-a0d4-4c81-821c-43ce68569310",
+    "model_id": "39661939-eb1b-41c5-8998-8bedad63ec2d",
+    "job_name": "training-run-0019",
+    "status": "queued",
+    "config": {
+      "epochs": 100,
+      "batch_size": 64,
+      "learning_rate": 0.000336,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-09T08:50:40.194354+00:00"
+  },
+  {
+    "id": "d3623009-41ba-4e70-8f1e-112ec98fc27c",
+    "model_id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "job_name": "training-run-0020",
+    "status": "completed",
+    "config": {
+      "epochs": 10,
+      "batch_size": 32,
+      "learning_rate": 0.000105,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.8959,
+      "val_loss": 1.2638,
+      "val_accuracy": 0.794
+    },
+    "started_at": "2026-07-09T13:50:40.194361+00:00",
+    "completed_at": "2026-07-14T07:34:40.194362+00:00",
+    "error_message": null,
+    "created_at": "2026-07-07T08:50:40.194364+00:00"
+  },
+  {
+    "id": "1b3dea94-3e31-4978-9441-041a968e1830",
+    "model_id": "c72af8a9-d494-4653-a5cf-7515555bb091",
+    "job_name": "training-run-0021",
+    "status": "failed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 64,
+      "learning_rate": 0.000357,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-08T01:50:40.194369+00:00",
+    "completed_at": null,
+    "error_message": "Training diverged",
+    "created_at": "2026-06-29T08:50:40.194371+00:00"
+  },
+  {
+    "id": "0eaa49a8-a354-4ae0-ba2d-545506d8a1e9",
+    "model_id": "846a424f-35ae-467e-8ed9-befea144e112",
+    "job_name": "training-run-0022",
+    "status": "completed",
+    "config": {
+      "epochs": 10,
+      "batch_size": 32,
+      "learning_rate": 2.5e-05,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.6257,
+      "val_loss": 2.1024,
+      "val_accuracy": 0.8372
+    },
+    "started_at": "2026-07-14T03:50:40.194378+00:00",
+    "completed_at": "2026-07-14T07:22:40.194379+00:00",
+    "error_message": null,
+    "created_at": "2026-06-22T08:50:40.194381+00:00"
+  },
+  {
+    "id": "9b592aee-1e43-4c5f-bf86-dbdb97456fb4",
+    "model_id": null,
+    "job_name": "training-run-0023",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 64,
+      "learning_rate": 0.000998,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.9474,
+      "val_loss": 0.6719,
+      "val_accuracy": 0.759
+    },
+    "started_at": "2026-07-11T13:50:40.194388+00:00",
+    "completed_at": "2026-07-14T07:37:40.194389+00:00",
+    "error_message": null,
+    "created_at": "2026-06-16T08:50:40.194391+00:00"
+  },
+  {
+    "id": "aa788654-04bf-4078-abc1-f065b9b32774",
+    "model_id": "016047e0-ed44-4f80-ab5d-0da98a30b11a",
+    "job_name": "training-run-0024",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 32,
+      "learning_rate": 0.000174,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.7431,
+      "val_loss": 0.6308,
+      "val_accuracy": 0.7074
+    },
+    "started_at": "2026-07-12T09:50:40.194398+00:00",
+    "completed_at": "2026-07-14T07:52:40.194399+00:00",
+    "error_message": null,
+    "created_at": "2026-06-14T08:50:40.194401+00:00"
+  },
+  {
+    "id": "f0be49cb-6586-4ac2-a67c-ae151016e3ee",
+    "model_id": "5838b66b-5d1d-430f-91b7-6d39ed3dad06",
+    "job_name": "training-run-0025",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 16,
+      "learning_rate": 0.000201,
+      "optimizer": "adamw",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 1.755,
+      "val_loss": 0.6273,
+      "val_accuracy": 0.8335
+    },
+    "started_at": "2026-07-14T05:50:40.194407+00:00",
+    "completed_at": "2026-07-14T08:06:40.194409+00:00",
+    "error_message": null,
+    "created_at": "2026-06-27T08:50:40.194410+00:00"
+  },
+  {
+    "id": "dd578388-83f1-4c9a-92a0-021f4526fd71",
+    "model_id": "07b65a5e-98c0-449c-85fe-288e2690be31",
+    "job_name": "training-run-0026",
+    "status": "queued",
+    "config": {
+      "epochs": 50,
+      "batch_size": 64,
+      "learning_rate": 0.000149,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": null,
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-16T08:50:40.194416+00:00"
+  },
+  {
+    "id": "4313a49d-5539-499e-be1e-d595400f2f3f",
+    "model_id": "03eeb7eb-73c8-4067-a6a1-a28095702a03",
+    "job_name": "training-run-0027",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 16,
+      "learning_rate": 0.000737,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-12T01:50:40.194422+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-22T08:50:40.194424+00:00"
+  },
+  {
+    "id": "3fb9e5c2-ae4e-469f-a1d1-40ebba4e4664",
+    "model_id": null,
+    "job_name": "training-run-0028",
+    "status": "cancelled",
+    "config": {
+      "epochs": 10,
+      "batch_size": 32,
+      "learning_rate": 0.000234,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-12T02:50:40.194429+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-26T08:50:40.194431+00:00"
+  },
+  {
+    "id": "641a0739-2f21-4ae0-aff7-637be3dd08c3",
+    "model_id": "9c41993b-6e49-428a-a8a8-046b141692ba",
+    "job_name": "training-run-0029",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 64,
+      "learning_rate": 0.000837,
+      "optimizer": "adam",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 0.6621,
+      "val_loss": 1.8462,
+      "val_accuracy": 0.7672
+    },
+    "started_at": "2026-07-12T05:50:40.194437+00:00",
+    "completed_at": "2026-07-14T07:58:40.194438+00:00",
+    "error_message": null,
+    "created_at": "2026-07-01T08:50:40.194440+00:00"
+  },
+  {
+    "id": "f927f7d6-0dc0-4dd3-8e03-221efc0a4a26",
+    "model_id": null,
+    "job_name": "training-run-0030",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 128,
+      "learning_rate": 0.000873,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.2645,
+      "val_loss": 0.8301,
+      "val_accuracy": 0.7199
+    },
+    "started_at": "2026-07-08T04:50:40.194445+00:00",
+    "completed_at": "2026-07-14T07:48:40.194447+00:00",
+    "error_message": null,
+    "created_at": "2026-06-26T08:50:40.194448+00:00"
+  },
+  {
+    "id": "96e7d654-0549-4717-8ea8-4332b0ef9900",
+    "model_id": "07b65a5e-98c0-449c-85fe-288e2690be31",
+    "job_name": "training-run-0031",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 32,
+      "learning_rate": 0.000713,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-10T23:50:40.194453+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-20T08:50:40.194455+00:00"
+  },
+  {
+    "id": "c3799d2f-2e29-431c-a5f0-b0eb1c1059dc",
+    "model_id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "job_name": "training-run-0032",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 128,
+      "learning_rate": 0.000502,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.184,
+      "val_loss": 2.1921,
+      "val_accuracy": 0.7437
+    },
+    "started_at": "2026-07-12T02:50:40.194461+00:00",
+    "completed_at": "2026-07-14T08:38:40.194462+00:00",
+    "error_message": null,
+    "created_at": "2026-06-27T08:50:40.194464+00:00"
+  },
+  {
+    "id": "20e359ca-f45e-45d3-a64b-74732999a4f4",
+    "model_id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "job_name": "training-run-0033",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 128,
+      "learning_rate": 0.000951,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-11T03:50:40.194469+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-07-08T08:50:40.194471+00:00"
+  },
+  {
+    "id": "611e6d7f-f1ac-4050-948d-ea82381cbf47",
+    "model_id": "9c2a21f4-48a5-4e16-86c9-6ff913f2d53e",
+    "job_name": "training-run-0034",
+    "status": "failed",
+    "config": {
+      "epochs": 10,
+      "batch_size": 16,
+      "learning_rate": 0.000346,
+      "optimizer": "adamw",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-08T21:50:40.194476+00:00",
+    "completed_at": null,
+    "error_message": "Training diverged",
+    "created_at": "2026-06-24T08:50:40.194478+00:00"
+  },
+  {
+    "id": "dbbc563c-26de-4e4d-963b-115462619653",
+    "model_id": "d4f2075d-df0e-4c4e-9b0a-4009e26b6891",
+    "job_name": "training-run-0035",
+    "status": "failed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 64,
+      "learning_rate": 0.00067,
+      "optimizer": "adam",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-11T13:50:40.194483+00:00",
+    "completed_at": null,
+    "error_message": "CUDA out of memory",
+    "created_at": "2026-06-16T08:50:40.194485+00:00"
+  },
+  {
+    "id": "e2c5cf97-13e9-44a0-a1cd-cf166f800eeb",
+    "model_id": "4b23fade-ddaf-48ee-9042-937d03eb1a2d",
+    "job_name": "training-run-0036",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 64,
+      "learning_rate": 0.000105,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.8769,
+      "val_loss": 1.7423,
+      "val_accuracy": 0.9248
+    },
+    "started_at": "2026-07-11T09:50:40.194491+00:00",
+    "completed_at": "2026-07-14T07:33:40.194493+00:00",
+    "error_message": null,
+    "created_at": "2026-06-15T08:50:40.194494+00:00"
+  },
+  {
+    "id": "e0acc04c-11b3-4bae-ba13-8b2a66d56a38",
+    "model_id": "3663842d-5a24-4a06-84f2-42ab3e175717",
+    "job_name": "training-run-0037",
+    "status": "completed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 16,
+      "learning_rate": 0.000208,
+      "optimizer": "adam",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 0.7631,
+      "val_loss": 0.4942,
+      "val_accuracy": 0.8583
+    },
+    "started_at": "2026-07-11T23:50:40.194500+00:00",
+    "completed_at": "2026-07-14T08:11:40.194502+00:00",
+    "error_message": null,
+    "created_at": "2026-06-22T08:50:40.194503+00:00"
+  },
+  {
+    "id": "9e40fbe3-ebd4-4ae0-8d70-bf136fe027aa",
+    "model_id": "33bd4c9c-8580-444d-a077-b1298c24c7ce",
+    "job_name": "training-run-0038",
+    "status": "running",
+    "config": {
+      "epochs": 10,
+      "batch_size": 64,
+      "learning_rate": 0.000695,
+      "optimizer": "adam",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-12T01:50:40.194508+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-16T08:50:40.194510+00:00"
+  },
+  {
+    "id": "289205e3-adf4-47d3-8942-2b2f23ada344",
+    "model_id": "c72af8a9-d494-4653-a5cf-7515555bb091",
+    "job_name": "training-run-0039",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 128,
+      "learning_rate": 4.6e-05,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.8462,
+      "val_loss": 1.875,
+      "val_accuracy": 0.8019
+    },
+    "started_at": "2026-07-09T17:50:40.194516+00:00",
+    "completed_at": "2026-07-14T08:39:40.194517+00:00",
+    "error_message": null,
+    "created_at": "2026-07-08T08:50:40.194519+00:00"
+  },
+  {
+    "id": "83f6b17d-00fa-4620-aa81-44c5e179c2ae",
+    "model_id": "bda4f275-7a27-4143-887f-fbcf83678618",
+    "job_name": "training-run-0040",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 32,
+      "learning_rate": 0.000776,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 0.6589,
+      "val_loss": 1.2658,
+      "val_accuracy": 0.8624
+    },
+    "started_at": "2026-07-10T05:50:40.194525+00:00",
+    "completed_at": "2026-07-14T07:35:40.194526+00:00",
+    "error_message": null,
+    "created_at": "2026-06-20T08:50:40.194528+00:00"
+  },
+  {
+    "id": "1aec89eb-672a-40f4-a88f-9acf3c2c89e5",
+    "model_id": null,
+    "job_name": "training-run-0041",
+    "status": "failed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 32,
+      "learning_rate": 0.000378,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-13T06:50:40.194533+00:00",
+    "completed_at": null,
+    "error_message": "CUDA out of memory",
+    "created_at": "2026-06-23T08:50:40.194534+00:00"
+  },
+  {
+    "id": "5c6b47cc-3e70-4262-b964-c7eda91d4f3c",
+    "model_id": "96f3242a-32ab-4c86-aa9b-8fcfefaf887e",
+    "job_name": "training-run-0042",
+    "status": "running",
+    "config": {
+      "epochs": 30,
+      "batch_size": 32,
+      "learning_rate": 0.000617,
+      "optimizer": "adamw",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-13T10:50:40.194540+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-19T08:50:40.194542+00:00"
+  },
+  {
+    "id": "24ac8c58-2d84-4dac-a4df-8af8746025e9",
+    "model_id": "07b65a5e-98c0-449c-85fe-288e2690be31",
+    "job_name": "training-run-0043",
+    "status": "failed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 128,
+      "learning_rate": 0.000453,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-11T12:50:40.194547+00:00",
+    "completed_at": null,
+    "error_message": "CUDA out of memory",
+    "created_at": "2026-06-29T08:50:40.194549+00:00"
+  },
+  {
+    "id": "8b744ab7-1e55-4f28-b786-b21b2fcbe6d8",
+    "model_id": "016047e0-ed44-4f80-ab5d-0da98a30b11a",
+    "job_name": "training-run-0044",
+    "status": "completed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 32,
+      "learning_rate": 0.00014,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {
+      "train_loss": 0.219,
+      "val_loss": 0.3331,
+      "val_accuracy": 0.8728
+    },
+    "started_at": "2026-07-11T15:50:40.194555+00:00",
+    "completed_at": "2026-07-14T07:02:40.194556+00:00",
+    "error_message": null,
+    "created_at": "2026-07-10T08:50:40.194557+00:00"
+  },
+  {
+    "id": "ec396846-b793-494d-8a61-abbe734cbf30",
+    "model_id": "86312a74-3926-4841-af6b-91e6e66f3526",
+    "job_name": "training-run-0045",
+    "status": "running",
+    "config": {
+      "epochs": 100,
+      "batch_size": 128,
+      "learning_rate": 0.000943,
+      "optimizer": "adamw",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-09T08:50:40.194562+00:00",
+    "completed_at": null,
+    "error_message": null,
+    "created_at": "2026-06-22T08:50:40.194564+00:00"
+  },
+  {
+    "id": "e47b2fdc-8551-4f47-9580-feb4d3c7f475",
+    "model_id": null,
+    "job_name": "training-run-0046",
+    "status": "completed",
+    "config": {
+      "epochs": 20,
+      "batch_size": 128,
+      "learning_rate": 0.000275,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 0.5801,
+      "val_loss": 1.4864,
+      "val_accuracy": 0.8632
+    },
+    "started_at": "2026-07-08T02:50:40.194570+00:00",
+    "completed_at": "2026-07-14T07:35:40.194572+00:00",
+    "error_message": null,
+    "created_at": "2026-07-04T08:50:40.194573+00:00"
+  },
+  {
+    "id": "67ce8faf-2630-4e59-8aac-285c814ebea0",
+    "model_id": "d355cbcf-c89b-4866-8c2e-2f9f76622b0b",
+    "job_name": "training-run-0047",
+    "status": "failed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 16,
+      "learning_rate": 0.000848,
+      "optimizer": "sgd",
+      "early_stopping": false
+    },
+    "metrics": {},
+    "started_at": "2026-07-10T04:50:40.194578+00:00",
+    "completed_at": null,
+    "error_message": "Training diverged",
+    "created_at": "2026-07-09T08:50:40.194580+00:00"
+  },
+  {
+    "id": "27b4b8a0-6dfe-4359-8f7b-c969de717139",
+    "model_id": "edb1b3c5-4089-40df-9f74-3800b72df5fc",
+    "job_name": "training-run-0048",
+    "status": "completed",
+    "config": {
+      "epochs": 30,
+      "batch_size": 64,
+      "learning_rate": 9.1e-05,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.0715,
+      "val_loss": 0.8898,
+      "val_accuracy": 0.9359
+    },
+    "started_at": "2026-07-08T23:50:40.194586+00:00",
+    "completed_at": "2026-07-14T07:37:40.194588+00:00",
+    "error_message": null,
+    "created_at": "2026-06-23T08:50:40.194589+00:00"
+  },
+  {
+    "id": "7fc20113-e200-4141-ada8-91c2b82b8f36",
+    "model_id": null,
+    "job_name": "training-run-0049",
+    "status": "failed",
+    "config": {
+      "epochs": 50,
+      "batch_size": 16,
+      "learning_rate": 0.000564,
+      "optimizer": "adam",
+      "early_stopping": true
+    },
+    "metrics": {},
+    "started_at": "2026-07-10T15:50:40.194594+00:00",
+    "completed_at": null,
+    "error_message": "Training diverged",
+    "created_at": "2026-07-05T08:50:40.194596+00:00"
+  },
+  {
+    "id": "1dc8f619-8850-415a-bb9e-3184a51fa7e7",
+    "model_id": null,
+    "job_name": "training-run-0050",
+    "status": "completed",
+    "config": {
+      "epochs": 100,
+      "batch_size": 16,
+      "learning_rate": 4.7e-05,
+      "optimizer": "sgd",
+      "early_stopping": true
+    },
+    "metrics": {
+      "train_loss": 1.1857,
+      "val_loss": 0.5306,
+      "val_accuracy": 0.8126
+    },
+    "started_at": "2026-07-13T01:50:40.194602+00:00",
+    "completed_at": "2026-07-14T06:56:40.194603+00:00",
+    "error_message": null,
+    "created_at": "2026-06-16T08:50:40.194605+00:00"
+  }
+]
