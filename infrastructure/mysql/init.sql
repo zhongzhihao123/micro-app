@@ -7,16 +7,7 @@
 -- 登录认证请走 Java Gateway (:8100/api/users/login)
 -- ============================================================
 CREATE TABLE IF NOT EXISTS users (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-    username VARCHAR(100) UNIQUE NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    hashed_password VARCHAR(255) NOT NULL,
-    role VARCHAR(20) DEFAULT 'user',
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
@@ -33,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- 知识库文档
 CREATE TABLE IF NOT EXISTS knowledge_documents (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     user_id CHAR(36),
     title VARCHAR(500) NOT NULL,
     content LONGTEXT,
@@ -48,7 +39,7 @@ CREATE TABLE IF NOT EXISTS knowledge_documents (
 
 -- 文档分块
 CREATE TABLE IF NOT EXISTS document_chunks (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     document_id CHAR(36) NOT NULL,
     chunk_index INT NOT NULL,
     content LONGTEXT NOT NULL,
@@ -60,7 +51,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 
 -- 对话历史
 CREATE TABLE IF NOT EXISTS conversations (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     user_id CHAR(36),
     title VARCHAR(500),
     model VARCHAR(100),
@@ -70,7 +61,7 @@ CREATE TABLE IF NOT EXISTS conversations (
 );
 
 CREATE TABLE IF NOT EXISTS messages (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     conversation_id CHAR(36) NOT NULL,
     role VARCHAR(20) NOT NULL,
     content LONGTEXT NOT NULL,
@@ -83,7 +74,7 @@ CREATE TABLE IF NOT EXISTS messages (
 
 -- 商品/内容
 CREATE TABLE IF NOT EXISTS items (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     title VARCHAR(500) NOT NULL,
     description TEXT,
     category VARCHAR(100),
@@ -96,7 +87,7 @@ CREATE TABLE IF NOT EXISTS items (
 
 -- 用户行为
 CREATE TABLE IF NOT EXISTS user_behaviors (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     user_id CHAR(36) NOT NULL,
     item_id CHAR(36) NOT NULL,
     behavior_type VARCHAR(20) NOT NULL,
@@ -109,7 +100,7 @@ CREATE TABLE IF NOT EXISTS user_behaviors (
 
 -- 推荐结果缓存
 CREATE TABLE IF NOT EXISTS recommendations (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     user_id CHAR(36) NOT NULL,
     item_ids JSON NOT NULL,
     scores JSON,
@@ -123,7 +114,7 @@ CREATE TABLE IF NOT EXISTS recommendations (
 
 -- 图像任务
 CREATE TABLE IF NOT EXISTS cv_tasks (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     user_id CHAR(36),
     task_type VARCHAR(50) NOT NULL,
     image_url TEXT,
@@ -137,7 +128,7 @@ CREATE TABLE IF NOT EXISTS cv_tasks (
 
 -- 检测结果
 CREATE TABLE IF NOT EXISTS detection_results (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     task_id CHAR(36) NOT NULL,
     label VARCHAR(200) NOT NULL,
     confidence DECIMAL(5,4),
@@ -151,7 +142,7 @@ CREATE TABLE IF NOT EXISTS detection_results (
 
 -- 模型注册
 CREATE TABLE IF NOT EXISTS models (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     version VARCHAR(50) NOT NULL,
     model_type VARCHAR(50) NOT NULL,
@@ -169,7 +160,7 @@ CREATE TABLE IF NOT EXISTS models (
 
 -- 训练任务
 CREATE TABLE IF NOT EXISTS training_jobs (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     model_id CHAR(36),
     job_name VARCHAR(200) NOT NULL,
     status VARCHAR(20) DEFAULT 'queued',
@@ -184,7 +175,7 @@ CREATE TABLE IF NOT EXISTS training_jobs (
 
 -- A/B 实验
 CREATE TABLE IF NOT EXISTS ab_experiments (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     model_a_id CHAR(36),
     model_b_id CHAR(36),
@@ -200,7 +191,7 @@ CREATE TABLE IF NOT EXISTS ab_experiments (
 
 -- 推理日志
 CREATE TABLE IF NOT EXISTS inference_logs (
-    id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    id CHAR(36) PRIMARY KEY,
     model_id CHAR(36),
     request_id VARCHAR(100) UNIQUE,
     input_preview TEXT,
