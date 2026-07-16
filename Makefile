@@ -23,8 +23,7 @@ help:
 up:
 	$(DOCKER) up -d
 	@echo "✅ 所有服务已启动"
-	@echo "  API 网关:    http://localhost:8000"
-	@echo "  API 文档:    http://localhost:8000/api/docs"
+	@echo "  Java 网关:   http://localhost:8000"
 	@echo "  RabbitMQ:    http://localhost:15672"
 	@echo "  MinIO:       http://localhost:9001"
 
@@ -35,7 +34,7 @@ down:
 restart: down up
 
 logs:
-	$(DOCKER) logs -f $(or $(service),gateway)
+	$(DOCKER) logs -f $(or $(service),nlp-service)
 
 status:
 	$(DOCKER) ps
@@ -62,8 +61,7 @@ dev:
 	@sleep 10
 	@echo "✅ 基础设施已启动"
 	@echo ""
-	@echo "📋 启动后端（新终端）:"
-	@echo "  cd backend && python3 -m uvicorn gateway.main:app --host 0.0.0.0 --port 8000 --reload"
+	@echo "📋 Python 后端网关已移除，DB Admin API 由 Java business-service 提供"
 	@echo ""
 	@echo "📋 启动前端（5个终端）:"
 	@echo "  cd frontend/base && npm run dev          # 基座 → http://localhost:3000"
