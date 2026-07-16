@@ -311,6 +311,8 @@ function startResize(e: MouseEvent, dir: string) {
 .app-container {
   width: 100%;
   height: 100%;
+  background: #ffffff;
+  overflow: auto;
 }
 
 .app-container.hidden {

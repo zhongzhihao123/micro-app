@@ -37,6 +37,27 @@
         </div>
       </div>
       <div class="taskbar-right">
+        <!-- OA 审批快捷按钮 -->
+        <el-popover placement="top-end" :width="350" trigger="click" popper-class="oa-popover">
+          <template #reference>
+            <div class="taskbar-icon-btn oa-btn" title="OA 审批">
+              <span style="font-size:16px">📋</span>
+              <span v-if="oaPendingCount > 0" class="oa-badge">{{ oaPendingCount }}</span>
+            </div>
+          </template>
+          <div class="oa-popover-content">
+            <div class="oa-popover-header">
+              <span>📋 OA 审批待办</span>
+              <span v-if="oaPendingCount > 0" class="oa-popover-badge">{{ oaPendingCount }} 条</span>
+            </div>
+            <div class="oa-popover-actions">
+              <el-button size="small" type="primary" @click="openOA('pending')">待我审批</el-button>
+              <el-button size="small" @click="openOA('create')">发起审批</el-button>
+              <el-button size="small" @click="openOA('dashboard')">工作台</el-button>
+            </div>
+          </div>
+        </el-popover>
+
         <div class="taskbar-time">
           <span class="time-text">{{ currentTime }}</span>
           <span class="date-text">{{ currentDate }}</span>
@@ -80,30 +101,68 @@
         </el-popover>
 
         <!-- 用户头像 -->
-        <el-popover placement="top-end" :width="260" trigger="click" @show="loadUserInfo">
+        <el-popover placement="top-end" :width="300" trigger="click" :show-after="0" :hide-after="100" popper-class="user-popover" @show="loadUserInfo">
           <template #reference>
             <div class="user-avatar-btn">
               <div class="user-avatar-circle">{{ userInitial }}</div>
             </div>
           </template>
-          <div class="user-menu">
-            <div class="user-menu-header">
-              <div class="um-avatar">{{ userInitial }}</div>
-              <div class="um-info">
-                <div class="um-name">{{ userInfo.displayName || userInfo.username }}</div>
-                <div class="um-email">{{ userInfo.email }}</div>
-                <el-tag size="small" :type="userInfo.role === 'admin' ? 'danger' : 'info'" style="margin-top:4px">{{ userInfo.role }}</el-tag>
+          <div class="user-panel">
+            <!-- 顶部身份区 -->
+            <div class="up-banner">
+              <div class="up-banner-bg" />
+              <div class="up-avatar">
+                <div class="up-avatar-ring">
+                  <div class="up-avatar-inner">{{ userInitial }}</div>
+                </div>
+                <div class="up-status-dot" />
+              </div>
+              <div class="up-identity">
+                <div class="up-name">{{ userInfo.displayName || userInfo.username }}</div>
+                <div class="up-email">{{ userInfo.email || '未设置邮箱' }}</div>
+              </div>
+              <div class="up-role-badge" :class="userInfo.role === 'admin' ? 'role-admin' : 'role-user'">
+                {{ userInfo.role === 'admin' ? '管理员' : '普通用户' }}
               </div>
             </div>
-            <el-divider style="margin:10px 0" />
-            <div class="um-perms" v-if="userInfo.permissions?.length">
-              <span class="um-perms-label">应用权限 ({{ userInfo.permissions.length }})：</span>
-              <div style="margin-top:6px">
-                <el-tag v-for="p in userInfo.permissions" :key="p" size="small" style="margin:2px">{{ p }}</el-tag>
+
+            <!-- 信息区 -->
+            <div class="up-section">
+              <div class="up-info-row">
+                <span class="up-info-label">用户名</span>
+                <span class="up-info-value">{{ userInfo.username }}</span>
+              </div>
+              <div class="up-info-row">
+                <span class="up-info-label">角色</span>
+                <span class="up-info-value">{{ userInfo.role }}</span>
+              </div>
+              <div class="up-info-row">
+                <span class="up-info-label">状态</span>
+                <span class="up-info-value up-status-active">● 在线</span>
               </div>
             </div>
-            <el-divider style="margin:10px 0" />
-            <el-button type="danger" plain size="small" style="width:100%" @click="handleLogout">🚪 退出登录</el-button>
+
+            <!-- 权限区 -->
+            <div class="up-section" v-if="userInfo.permissions?.length">
+              <div class="up-section-title">
+                <span>应用权限</span>
+                <span class="up-perm-count">{{ userInfo.permissions.length }}</span>
+              </div>
+              <div class="up-perm-grid">
+                <div v-for="p in userInfo.permissions" :key="p" class="up-perm-chip">
+                  <span class="up-perm-icon">{{ permIcon(p) }}</span>
+                  <span>{{ permLabel(p) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 操作区 -->
+            <div class="up-actions">
+              <button class="up-btn up-btn-logout" @click="handleLogout">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                退出登录
+              </button>
+            </div>
           </div>
         </el-popover>
       </div>
@@ -121,6 +180,37 @@ import LoginDialog from '@/components/LoginDialog.vue'
 import axios from 'axios'
 
 const store = useWindowStore()
+
+// OA 审批待办数
+const oaPendingCount = ref(0)
+let oaPollTimer: number | null = null
+async function pollOAStatus() {
+  try {
+    const token = localStorage.getItem('token')
+    if (!token) return
+    const res = await axios.get('/api/oa/notifications/unread-count', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    oaPendingCount.value = res.data?.data || 0
+  } catch {}
+}
+function openOA(page: string) {
+  const pathMap: Record<string, string> = { dashboard: '/oa/dashboard', pending: '/oa/pending', create: '/oa/create' }
+  const path = pathMap[page] || '/oa/dashboard'
+  // Use store.openApp to open/create the window
+  store.openApp('sub-oa')
+  // Navigate to the correct page once the app is loaded
+  setTimeout(() => {
+    const container = document.querySelector('[data-qiankun="sub-oa"]')
+    if (container) {
+      const appEl = container.querySelector('#app')
+      const vueApp = (appEl as any)?.__vue_app__
+      if (vueApp?.config?.globalProperties?.$router) {
+        vueApp.config.globalProperties.$router.push(path)
+      }
+    }
+  }, 500)
+}
 const { windows, activeWindowId, openApp, closeWindow, minimizeWindow, toggleMaximize, focusWindow, updatePosition, updateSize } = store
 
 const token = ref(localStorage.getItem('jwt_token') || '')
@@ -151,6 +241,18 @@ function handleLogout() {
   token.value = ''; isLoggedIn.value = false; userInfo.value = {}
   for (const w of [...windows]) closeWindow(w.id)
 }
+
+// ── 权限图标/标签映射 ──
+const permMap: Record<string, { icon: string; label: string }> = {
+  'nlp': { icon: '🧠', label: 'NLP 知识库' },
+  'recommend': { icon: '🎯', label: '推荐系统' },
+  'cv': { icon: '👁️', label: '计算机视觉' },
+  'mlops': { icon: '⚙️', label: 'MLOps 平台' },
+  'dbadmin': { icon: '🗄️', label: '数据管理' },
+  'system-manager': { icon: '👥', label: '系统管理' },
+}
+function permIcon(p: string) { return permMap[p]?.icon || '📦' }
+function permLabel(p: string) { return permMap[p]?.label || p }
 
 // ── 壁纸系统 ──
 const wallpaper = ref('midnight')
@@ -213,6 +315,9 @@ onMounted(async () => {
     const cached = localStorage.getItem('user_info')
     if (cached) { try { const u = JSON.parse(cached); userInfo.value = u; userPerms.value = u.permissions || [] } catch {} }
     loadUserSettings()
+    // Poll OA status
+    pollOAStatus()
+    oaPollTimer = window.setInterval(pollOAStatus, 30000)
   }
 })
 
@@ -220,6 +325,7 @@ onMounted(async () => {
 const appPermKeyMap: Record<string, string> = {
   'sub-nlp': 'nlp', 'sub-recommend': 'recommend', 'sub-cv': 'cv',
   'sub-mlops': 'mlops', 'sub-sql': 'dbadmin', 'system-manager': 'system-manager',
+  'sub-cicd': 'cicd', 'sub-oa': 'oa',
 }
 const desktopApps = APP_DEFS
 const visibleApps = computed(() => {
@@ -273,7 +379,7 @@ watch(() => windows.length, (newLen, oldLen) => {
 })
 
 onMounted(() => { updateClock(); clockTimer = window.setInterval(updateClock, 10000) })
-onUnmounted(() => { clearInterval(clockTimer); for (const [, app] of microApps) app.unmount() })
+onUnmounted(() => { clearInterval(clockTimer); if (oaPollTimer) clearInterval(oaPollTimer); for (const [, app] of microApps) app.unmount() })
 </script>
 
 <style>
@@ -283,6 +389,17 @@ onUnmounted(() => { clearInterval(clockTimer); for (const [, app] of microApps) 
 
 :root {
   --taskbar-height: 48px;
+
+  /* 窗口主题变量 */
+  --bg-window: #ffffff;
+  --bg-window-content: #ffffff;
+  --bg-titlebar: #f8f9fb;
+  --border-window: rgba(0, 0, 0, 0.08);
+  --border-window-focused: rgba(59, 130, 246, 0.3);
+  --text-primary: #1a1d28;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent-blue: #3b82f6;
 }
 
 html, body, #app {
@@ -300,8 +417,10 @@ html, body, #app {
 /* ── Desktop Icons ── */
 .desktop-icons {
   position:absolute; top:32px; left:32px;
-  display:flex; flex-direction:column; gap:10px; z-index:2;
+  display:flex; flex-direction:column; flex-wrap:wrap; gap:10px; z-index:2;
   padding-bottom:calc(var(--taskbar-height)+16px);
+  max-height:calc(100vh - var(--taskbar-height) - 48px);
+  align-content:flex-start;
 }
 .desktop-icon {
   display:flex; flex-direction:column; align-items:center; gap:5px;
@@ -321,7 +440,8 @@ html, body, #app {
 }
 
 .windows-layer {
-  position:absolute; inset:0; bottom:calc(var(--taskbar-height)+8px); z-index:3; pointer-events:none;
+  position:absolute; top:0; left:0; right:0; bottom:calc(var(--taskbar-height) + 8px);
+  z-index:3; pointer-events:none;
 }
 .windows-layer > * { pointer-events:auto; }
 
@@ -395,6 +515,13 @@ html, body, #app {
 }
 .taskbar-icon-btn:hover { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.8); }
 .taskbar-icon-btn:active { transform:scale(0.92); }
+.taskbar-icon-btn.oa-btn { position: relative; }
+.oa-badge {
+  position: absolute; top: -2px; right: -2px;
+  background: #ff4d4f; color: #fff;
+  font-size: 10px; min-width: 16px; height: 16px; line-height: 16px;
+  border-radius: 8px; text-align: center; padding: 0 4px; font-weight: 600;
+}
 
 /* User avatar */
 .user-avatar-btn { width:30px; height:30px; border-radius:50%; cursor:pointer; transition:all 0.2s; }
@@ -406,18 +533,139 @@ html, body, #app {
   display:flex; align-items:center; justify-content:center;
 }
 
-/* User menu */
-.user-menu-header { display:flex; align-items:center; gap:12px; }
-.um-avatar {
-  width:44px; height:44px; border-radius:50%;
-  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-  color:#fff; font-size:20px; font-weight:700;
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+/* ── User Panel (企业级) ── */
+.user-panel {
+  font-family:'Outfit',-apple-system,BlinkMacSystemFont,sans-serif;
+  margin:-12px; padding:0;
+  overflow:hidden;
 }
-.um-info { display:flex; flex-direction:column; }
-.um-name { font-size:15px; font-weight:600; color:#1a1d28; }
-.um-email { font-size:12px; color:#9ca3af; }
-.um-perms-label { font-size:12px; color:#9ca3af; }
+
+/* 顶部身份区 */
+.up-banner {
+  position:relative; padding:24px 20px 16px;
+  background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);
+  overflow:hidden;
+}
+.up-banner-bg {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 80% 20%,rgba(59,130,246,0.15) 0%,transparent 50%),
+    radial-gradient(circle at 20% 80%,rgba(139,92,246,0.1) 0%,transparent 50%);
+}
+.up-avatar {
+  position:relative; display:inline-block; margin-bottom:12px;
+}
+.up-avatar-ring {
+  width:56px; height:56px; border-radius:50%; padding:2px;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);
+  box-shadow:0 4px 20px rgba(59,130,246,0.3);
+}
+.up-avatar-inner {
+  width:100%; height:100%; border-radius:50%;
+  background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+  color:#fff; font-size:22px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid #1e293b;
+}
+.up-status-dot {
+  position:absolute; bottom:2px; right:2px;
+  width:12px; height:12px; border-radius:50%;
+  background:#22c55e; border:2px solid #1e293b;
+  box-shadow:0 0 8px rgba(34,197,94,0.5);
+}
+.up-identity { position:relative; }
+.up-name {
+  font-size:17px; font-weight:700; color:#f1f5f9;
+  letter-spacing:-0.3px; line-height:1.2;
+}
+.up-email {
+  font-size:12px; color:#94a3b8; margin-top:2px;
+  font-family:'JetBrains Mono',monospace;
+}
+.up-role-badge {
+  position:absolute; top:20px; right:16px;
+  padding:3px 10px; border-radius:20px;
+  font-size:11px; font-weight:600; letter-spacing:0.3px;
+}
+.role-admin {
+  background:rgba(239,68,68,0.15); color:#fca5a5;
+  border:1px solid rgba(239,68,68,0.2);
+}
+.role-user {
+  background:rgba(59,130,246,0.15); color:#93c5fd;
+  border:1px solid rgba(59,130,246,0.2);
+}
+
+/* 信息区 */
+.up-section {
+  padding:14px 20px;
+  border-bottom:1px solid #f1f5f9;
+}
+.up-section:last-of-type { border-bottom:none; }
+.up-section-title {
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:11px; font-weight:600; color:#94a3b8;
+  text-transform:uppercase; letter-spacing:0.8px;
+  margin-bottom:10px;
+}
+.up-perm-count {
+  background:#f1f5f9; color:#64748b;
+  padding:1px 7px; border-radius:10px;
+  font-size:10px; font-weight:700;
+}
+.up-info-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:6px 0;
+}
+.up-info-row + .up-info-row { border-top:1px solid #f8fafc; }
+.up-info-label {
+  font-size:12px; color:#94a3b8; font-weight:500;
+}
+.up-info-value {
+  font-size:13px; color:#1e293b; font-weight:600;
+  font-family:'JetBrains Mono',monospace;
+}
+.up-status-active {
+  color:#22c55e; font-family:'Outfit',sans-serif;
+  font-size:12px;
+}
+
+/* 权限网格 */
+.up-perm-grid {
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.up-perm-chip {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:4px 10px; border-radius:6px;
+  background:#f8fafc; border:1px solid #e2e8f0;
+  font-size:12px; color:#475569; font-weight:500;
+  transition:all 0.15s;
+}
+.up-perm-chip:hover {
+  background:#eff6ff; border-color:#bfdbfe; color:#2563eb;
+}
+.up-perm-icon { font-size:13px; }
+
+/* 操作区 */
+.up-actions {
+  padding:12px 20px 16px;
+}
+.up-btn {
+  width:100%; padding:9px 0; border:none; border-radius:8px;
+  font-size:13px; font-weight:600; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  transition:all 0.2s; font-family:'Outfit',sans-serif;
+}
+.up-btn-logout {
+  background:#fef2f2; color:#dc2626; border:1px solid #fecaca;
+}
+.up-btn-logout:hover {
+  background:#fee2e2; border-color:#fca5a5;
+  box-shadow:0 2px 8px rgba(220,38,38,0.1);
+}
+.up-btn-logout:active {
+  transform:scale(0.98);
+}
 
 /* ── Skin Picker ── */
 .skin-picker { max-height:420px; overflow-y:auto; }
@@ -441,4 +689,13 @@ html, body, #app {
 <!-- 全局修复 popover 在 Shadow DOM 下的样式 -->
 <style>
 .skin-popover { z-index: 10000 !important; }
+.user-popover {
+  z-index: 10000 !important;
+  padding: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08) !important;
+  border: 1px solid #e2e8f0 !important;
+  overflow: hidden !important;
+}
+.user-popover .el-popover-arrow { display: none !important; }
 </style>

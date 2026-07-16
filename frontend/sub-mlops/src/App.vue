@@ -31,7 +31,7 @@ function handleTabClick(tab: any) { router.push(`/${tab.props.name}`) }
 </script>
 
 <style scoped>
-.mlops-app { height: 100%; }
+.mlops-app { height: 100%; background: #f5f7fa; padding: 16px; box-sizing: border-box; overflow: auto; }
 .sub-app-header { background: #fff; padding: 20px 24px; border-radius: 8px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .sub-app-header h2 { margin: 0 0 16px 0; font-size: 20px; color: #303133; }
 .sub-app-content { background: #fff; padding: 24px; border-radius: 8px; min-height: 500px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }

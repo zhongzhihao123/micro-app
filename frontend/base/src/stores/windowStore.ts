@@ -80,6 +80,26 @@ export const APP_DEFS = [
     defaultWidth: 1200,
     defaultHeight: 780,
   },
+  {
+    id: 'sub-cicd',
+    name: 'CI/CD 流水线',
+    title: 'CI/CD 流水线 - 自动化构建部署',
+    icon: '🚀',
+    entry: '//localhost:3007',
+    color: '#10b981',
+    defaultWidth: 1200,
+    defaultHeight: 780,
+  },
+  {
+    id: 'sub-oa',
+    name: 'OA 审批',
+    title: 'OA 审批系统 - 企业请假审批',
+    icon: '📋',
+    entry: '//localhost:3008',
+    color: '#1890ff',
+    defaultWidth: 1100,
+    defaultHeight: 720,
+  },
 ]
 
 export const useWindowStore = defineStore('windows', () => {

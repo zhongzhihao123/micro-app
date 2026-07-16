@@ -37,6 +37,10 @@ function handleTabClick(tab: any) {
 <style scoped>
 .nlp-app {
   height: 100%;
+  background: #f5f7fa;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .sub-app-header {
