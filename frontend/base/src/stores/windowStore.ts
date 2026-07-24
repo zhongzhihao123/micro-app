@@ -100,6 +100,16 @@ export const APP_DEFS = [
     defaultWidth: 1100,
     defaultHeight: 720,
   },
+  {
+    id: 'sub-eclaw',
+    name: 'Eclaw 智能体',
+    title: 'Eclaw - AI Agent 智能体平台',
+    icon: '🤖',
+    entry: '//localhost:3009',
+    color: '#8B5CF6',
+    defaultWidth: 1200,
+    defaultHeight: 760,
+  },
 ]
 
 export const useWindowStore = defineStore('windows', () => {

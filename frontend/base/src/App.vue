@@ -325,7 +325,7 @@ onMounted(async () => {
 const appPermKeyMap: Record<string, string> = {
   'sub-nlp': 'nlp', 'sub-recommend': 'recommend', 'sub-cv': 'cv',
   'sub-mlops': 'mlops', 'sub-sql': 'dbadmin', 'system-manager': 'system-manager',
-  'sub-cicd': 'cicd', 'sub-oa': 'oa',
+  'sub-cicd': 'cicd', 'sub-oa': 'oa', 'sub-eclaw': 'eclaw',
 }
 const desktopApps = APP_DEFS
 const visibleApps = computed(() => {
